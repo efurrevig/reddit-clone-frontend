@@ -4,14 +4,14 @@ import clsx from 'clsx'
 const Button = (
     props: React.ComponentPropsWithoutRef<'button'> & {
         onClick?: () => void,
-        customClass?: boolean
+        clearDefault?: boolean,
+        customClass?: string
     }
 ) => {
-    const className = props.customClass ? '' : 'bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded'
-    const { ...rest } = props
+    const className = props.clearDefault ? '' : 'bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded'
     return (
         <button
-            className={clsx(className, {...rest})}
+            className={clsx(className, props.customClass)}
             onClick={props.onClick}
         >
             {props.children}

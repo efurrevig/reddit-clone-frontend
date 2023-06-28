@@ -3,7 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import Button from '../Button'
-import LoginForm from '../LoginForm'
+import SessionForm from '../session/SessionForm'
 import { Icons } from '../Icons'
 import { useDispatch, useSelector } from 'react-redux'
 import { useState } from 'react'
@@ -20,8 +20,8 @@ const Navbar = () => {
   }
 
   return (
-    <header className="bg-zinc-800 sticky top-0 inset-x-0 h-fit z-[10] py-2 flex justify-between">
-        {showLogin && <LoginForm setShowForm={setShowLogin} />}
+    <header className="bg-gray-900 sticky top-0 inset-x-0 h-fit z-[10] py-2 flex justify-between">
+        {showLogin && <SessionForm setShowForm={setShowLogin} />}
         <div className="container flex max-w-7x1 h-full mx-auto items-center gap-5">
             <Link href="/" className="flex gap-2 items-center">
                 <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"  />

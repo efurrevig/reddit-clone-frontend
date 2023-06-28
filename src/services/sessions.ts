@@ -1,5 +1,5 @@
 
-const login = async (email: string, password: string) => {
+const sessionLogin = async (email: string, password: string) => {
     const res = await fetch('api/login', {
         method: 'POST',
         body: JSON.stringify({
@@ -12,7 +12,7 @@ const login = async (email: string, password: string) => {
     return data
 }
 
-const signup = async (username: string, email: string, password: string, password_confirmation: string) => {
+const sessionSignup = async (username: string, email: string, password: string, password_confirmation: string) => {
     const user = { username, email, password, password_confirmation }
     const res = await fetch('/api/signup', {
         method: 'POST',
@@ -26,6 +26,15 @@ const signup = async (username: string, email: string, password: string, passwor
     return [data, headers]
 }
 
-const sessionService = { login, signup }
+const sessionLogout = async (token: string) => {
+    const res = await fetch('/api/logout', {
+        method: 'DELETE',
+        headers: { 'Authorization': token }
+    })
+    const data = await res.json()
+    return data
+}
+
+const sessionService = { sessionLogin, sessionSignup, sessionLogout }
 
 export default sessionService

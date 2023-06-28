@@ -12,7 +12,7 @@ export default function Register() {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
 
-        const res = await sessionService.signup(username, email, password, passwordConfirmation)
+        const res = await sessionService.sessionSignup(username, email, password, passwordConfirmation)
         const data = await res
         console.log(data)
     }

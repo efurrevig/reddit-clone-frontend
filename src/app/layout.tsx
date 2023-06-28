@@ -1,8 +1,9 @@
 import Navbar from '../components/navbar/Navbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
-
+import Providers from '@/components/Provider'
 const inter = Inter({ subsets: ['latin'] })
+
 
 export const metadata = {
   title: 'Creddit',
@@ -18,7 +19,9 @@ export default function RootLayout({
 
     <html lang="en">
       <body className={inter.className}>
-        <Navbar />
+        <Providers>
+          <Navbar />
+        </Providers>
         {children}
       </body>
     </html>

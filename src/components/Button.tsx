@@ -8,7 +8,7 @@ const Button = (
         customClass?: string
     }
 ) => {
-    const className = props.clearDefault ? '' : 'bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded'
+    const className = props.clearDefault ? '' : 'bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-3xl flex justify-center items-center gap-2'
     return (
         <button
             className={clsx(className, props.customClass)}

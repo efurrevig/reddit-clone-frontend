@@ -1,6 +1,8 @@
 'use client'
 import { useState } from 'react'
 import Button from '../Button'
+import { login } from '@/reducers/userReducer'
+import { useAppDispatch } from '@/app/hooks'
 
 type LoginFormProps = {
     setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -12,8 +14,15 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay }) => {
         password: ''
     })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const dispatch = useAppDispatch()
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        try {
+            console.log('login')
+            await dispatch(login(form.email, form.password))
+        } catch (error) {
+            console.log(error)
+        }
     }
 
 

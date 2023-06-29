@@ -3,13 +3,17 @@ const sessionLogin = async (email: string, password: string) => {
     const res = await fetch('api/login', {
         method: 'POST',
         body: JSON.stringify({
-            email: email,
-            password: password,
+            user: {
+                email: email,
+                password: password,
+            }
          }),
         headers: { 'Content-Type': 'application/json' }
     })
     const data = await res.json()
-    return data
+    const headers = await res.headers.get('Authorization')
+
+    return [data, headers]
 }
 
 const sessionSignup = async (username: string, email: string, password: string, password_confirmation: string) => {
@@ -21,6 +25,7 @@ const sessionSignup = async (username: string, email: string, password: string, 
     })
     const data = await res.json()
     const headers = await res.headers.get('Authorization')
+    console.log(data)
     console.log(headers)
     
     return [data, headers]

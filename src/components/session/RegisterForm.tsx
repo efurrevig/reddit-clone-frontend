@@ -1,6 +1,9 @@
 'use client'
 import { useState } from 'react'
 import Button from '../Button'
+import sessionService from '@/services/sessions'
+import { signup } from '@/reducers/userReducer'
+import { useAppDispatch } from '@/app/hooks'
 
 type RegisterFormProps = {
     setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,10 +17,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ setDisplay }) => {
         confirmPassword: ''
     })
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const dispatch = useAppDispatch()
+    
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        console.log(form)
-    }
+        try {
+            await dispatch(signup(form.username, form.email, form.password, form.confirmPassword))
+        } catch (error) {
+            console.log(error)
+        }
+    }  
 
     return (
         <div className="mx-10 flex flex-col items-center">

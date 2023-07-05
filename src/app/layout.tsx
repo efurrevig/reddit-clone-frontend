@@ -21,8 +21,8 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navbar />
+          {children}
         </Providers>
-        {children}
       </body>
     </html>
   )

@@ -1,8 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Button from '../Button'
-import { login } from '@/reducers/userReducer'
-import { useAppDispatch } from '@/app/hooks'
+import { signIn } from 'next-auth/react'
 
 type LoginFormProps = {
     setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
@@ -14,22 +13,19 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay }) => {
         password: ''
     })
 
-    const dispatch = useAppDispatch()
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent ) => {
         e.preventDefault()
-        try {
-            console.log('login')
-            await dispatch(login(form.email, form.password))
-        } catch (error) {
-            console.log(error)
-        }
+        const { email, password } = form
+        const res = await signIn('credentials', { redirect: false, email, password, callbackUrl: '/' })
+        console.log(res)
+
     }
 
 
     return (
         <div className="mx-10 flex flex-col items-center">
             <h1> Log In </h1>
-            <form 
+            <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4 py-6 m-0"
             >

@@ -2,7 +2,6 @@
 import { useState } from 'react'
 import Button from '../Button'
 import sessionService from '@/services/sessions'
-import { signIn } from 'next-auth/react'
 
 type RegisterFormProps = {
     setDisplay: React.Dispatch<React.SetStateAction<boolean>>;

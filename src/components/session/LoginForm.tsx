@@ -4,20 +4,39 @@ import Button from '../Button'
 import { signIn } from 'next-auth/react'
 
 type LoginFormProps = {
-    setDisplay: React.Dispatch<React.SetStateAction<boolean>>;
+    setDisplay: React.Dispatch<React.SetStateAction<boolean>>
+    closeForm: () => void
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ setDisplay }) => {
-    const [form, setForm] = useState({
+const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
+    const initialForm = {
         email: '',
         password: ''
-    })
+    }
+    const [form, setForm] = useState({ ...initialForm })
+    const [isLoading, setIsLoading] = useState(false)
+    const [success, setSuccess] = useState('')
+    const [error, setError] = useState('')
 
     const handleSubmit = async (e: React.FormEvent ) => {
         e.preventDefault()
-        const { email, password } = form
-        const res = await signIn('credentials', { redirect: false, email, password, callbackUrl: '/' })
-        console.log(res)
+        try {
+            setIsLoading(true)
+            const { email, password } = form
+            const res = await signIn('credentials', { redirect: false, email, password })
+            if (res?.error) {
+                setError('Invalid credentials')
+            } else {
+                setError('')
+                setSuccess('Success')
+                closeForm()
+
+            }
+        } catch (error) {
+            console.log('login error:', error)
+        } finally {
+            setIsLoading(false)
+        }
 
     }
 
@@ -25,6 +44,8 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay }) => {
     return (
         <div className="mx-10 flex flex-col items-center">
             <h1> Log In </h1>
+            <p className="text-green-500 text-xs mt-3"> {success} </p>
+            <p className="text-red-500 text-xs mt-3"> {error} </p>
             <form
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-4 py-6 m-0"
@@ -50,7 +71,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay }) => {
             <div className="mb-10">
                 <div className="flex gap-2"> 
                     <p>New to Creddit?</p>
-                    <Button clearDefault={true} onClick={() => setDisplay(false)} customClass="text-blue-500 hover:text-blue-600 cursor-pointer"> 
+                    <Button isLoading={isLoading} clearDefault={true} onClick={() => setDisplay(false)} customClass="text-blue-500 hover:text-blue-600 cursor-pointer"> 
                         Sign Up 
                     </Button> 
                 </div>

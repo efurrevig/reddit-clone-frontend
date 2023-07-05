@@ -16,7 +16,7 @@ const register = async (username: string, email: string, password: string, passw
 }
 
 const logout = async (token: string) => {
-    const res = await fetch('/api/logout', {
+    const res = await fetch('/api/backend/logout', {
         method: 'DELETE',
         headers: { 'Authorization': token }
     })

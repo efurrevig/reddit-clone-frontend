@@ -23,7 +23,7 @@ const SessionForm: React.FC<SessionFormProps> = ({ setShowForm }) => {
                 <div className='flex justify-end h-10 items-center'>
                     <Button customClass="m-4 text-white text-2xl" clearDefault={true} onClick={closeForm}> <Icons.closeX /> </Button>
                 </div>
-                {display && <LoginForm setDisplay={setDisplay} />}
+                {display && <LoginForm setDisplay={setDisplay} closeForm={closeForm} />}
                 {!display && <RegisterForm setDisplay={setDisplay} />}
             </div>
         </div>

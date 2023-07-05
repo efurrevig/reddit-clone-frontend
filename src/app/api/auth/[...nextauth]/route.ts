@@ -11,7 +11,6 @@ const handler = NextAuth({
                 password: { label: "Password", type: "password" }
             },
             async authorize(credentials, req) {
-                console.log('hello')
                 // Add logic here to look up the user from the credentials supplied
                 const res = await fetch('http://localhost:3001/api/login', {
                     method: 'POST',
@@ -24,14 +23,16 @@ const handler = NextAuth({
                     headers: { 'Content-Type': 'application/json' }
                 })
                 const user = await res.json()
-                console.log(user.data)
-                console.log(res.ok)
+                const token = await res.headers.get('Authorization')
+                user.data.accessToken = token
                 if (res.ok && user.data) {
+                    console.log('Route success')
                     // Any object returned will be saved in `user` property of the JWT
                     return user.data
                 } else {
                     // If you return null or false then the credentials will be rejected
-                    return null
+                    console.log(user)
+                    throw new Error('Invalid credentials')
                     // You can also Reject this callback with an Error or with a URL:
                     // throw new Error('error message') // Redirect to error page
                     // throw '/path/to/redirect'        // Redirect to a URL
@@ -42,6 +43,16 @@ const handler = NextAuth({
     session: {
         strategy: 'jwt'
     },
+    callbacks: {
+        async jwt({ token, user }) {
+            return { ...token, ...user }
+        },
+        async session({ session, token, user }) {
+            session.user = token as any
+            return session
+        }
+    }
+
 
 })
 

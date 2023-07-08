@@ -21,7 +21,6 @@ const NavDropdown = () => {
         getCommunities()
     }, [])
 
-    console.log('communities: ',communities)
     const [dropdownItems, setDropdownItems] = useState(initialDropdownItems)
     const handleDropdownClick = () => {
         setShowDropdown(!showDropdown)

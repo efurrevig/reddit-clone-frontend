@@ -1,5 +1,6 @@
 import { Icons } from "./Icons"
 import Link from "next/link"
+
 const createPostHeader = () => {
     return (
         <div className='flex mb-3 h-14 rounded p-2 bg-gray-900'>

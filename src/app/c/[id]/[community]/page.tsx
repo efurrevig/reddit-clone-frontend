@@ -1,4 +1,5 @@
 import PostPreview  from '@/components/PostPreview'
+import CommunitySortBar from '@/components/CommunitySortBar'
 import { Post, Community } from '@/types'
 
 async function getPosts(id: number) {
@@ -28,6 +29,7 @@ export default async function Page({ params }: { params: { id: number, name: str
 
     return (
         <div className='my-2'>
+            <CommunitySortBar />
             {posts.map((post) => {
                 return (
                     <PostPreview key={post.id} post={post}  />

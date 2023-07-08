@@ -1,7 +1,8 @@
-import Navbar from '../components/navbar/Navbar'
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Providers from '@/components/Provider'
+import Navbar from '@/components/navbar/Navbar'
+import CreatePostHeader from '@/components/CreatePostHeader'
 const inter = Inter({ subsets: ['latin'] })
 
 
@@ -21,8 +22,11 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navbar />
-          <div className='flex flex-row gap-2 justify-center w-full'>
-            {children}
+          <div className='flex flex-row gap-2 justify-center w-full my-3'>
+            <div className='w-144'>
+              <CreatePostHeader />
+              {children}
+            </div>
           </div>
         </Providers>
       </body>

@@ -4,7 +4,7 @@ import { Icons }from "./Icons";
 
 const PostPreview = ({post}: {post: Post}) => {
     return (
-        <div className='relative bg-gray-900 rounded mb-1 pl-10 min-h-fill'>
+        <div className='relative bg-gray-900 rounded mb-3 pl-10 min-h-fill'>
             Temporary name
             <div className='absolute items-center flex flex-col left-0 top-0'>
                 <Icons.arrowUp />

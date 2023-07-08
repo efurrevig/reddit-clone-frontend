@@ -35,7 +35,7 @@ const Navbar = () => {
     }
 
     return (
-        <header className="min-w-full bg-gray-900 sticky top-0 inset-x-0 h-fit z-[10] flex items-center justify-between px-3">
+        <header className="min-w-full h-14 bg-gray-900 sticky top-0 inset-x-0 h-fit z-[10] flex items-center justify-between px-3">
 
             {/* login modal */}
             {showLogin && <SessionForm setShowForm={setShowLogin} />}

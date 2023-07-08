@@ -26,16 +26,16 @@ const NavDropdown = () => {
     const handleDropdownClick = () => {
         setShowDropdown(!showDropdown)
     }
-    const dropdownClass = `relative w-64 text-sm flex flex-col border border-transparent ${showDropdown ? 'border-slate-500' : ''} hover:border-slate-500 rounded pt-1`
+    const dropdownClass = `relative w-64 h-12 text-sm flex flex-col border border-transparent ${showDropdown ? 'border-slate-500' : ''} hover:border-slate-500 rounded pt-1`
 
     return (
         <div className={dropdownClass}>
-            <Button clearDefault={true} onClick={handleDropdownClick} customClass='flex flex-row justify-between'>
+            <Button clearDefault={true} onClick={handleDropdownClick} customClass='min-h-full px-2 items-center flex flex-row justify-between'>
                 <div>NavDropdown</div>
                 <Icons.chevronDown />
             </Button>
             {showDropdown &&
-                <div className='absolute bg-gray-900 border border-slate-500 border-t-0 rounded-t-none top-full -left-px w-64 min-w-full flex flex-col gap-2 rounded -mt-1'>
+                <div className='absolute max-h-96 overflow-y-scroll overflow-x-hidden bg-gray-900 border border-slate-500 border-t-0 rounded-t-none top-full -left-px w-64 min-w-full flex flex-col gap-2 rounded -mt-1'>
                     {dropdownItems.map((item) => {
                         return (
                             <Button 
@@ -53,7 +53,11 @@ const NavDropdown = () => {
                     })}
                     {communities.map((community) => {
                         return (
-                            <Link href={`/c/${community.id}`} key={community.id} className='flex flex-row gap-1 py-1 px-4 hover:bg-gray-700 items-center'>
+                            <Link 
+                                href={`/c/${community.id}/${community.name}`}
+                                key={community.id} 
+                                className='flex flex-row gap-1 py-1 px-4 hover:bg-gray-700 items-center'
+                            >
                                 <Icons.logo  />
                                 <div>c/{community.name}</div>
                             </Link>

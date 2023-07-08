@@ -11,3 +11,18 @@ export interface Community {
     //banner: ???,
     //description: string
 }
+
+export interface Post {
+    id: number,
+    title: string,
+    body: string,
+    post_type: string, // text, image, video, link
+    media_url: string | null,
+    username: string,
+    community_id: number
+}
+
+export interface Community {
+    id: number,
+    name: string,
+}

@@ -21,7 +21,9 @@ export default function RootLayout({
       <body className={inter.className}>
         <Providers>
           <Navbar />
-          {children}
+          <div className='flex flex-row gap-2 justify-center w-full'>
+            {children}
+          </div>
         </Providers>
       </body>
     </html>

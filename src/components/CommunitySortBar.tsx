@@ -17,7 +17,7 @@ const CommunitySortBar = (
         <div className='flex mb-3 gap-5 h-14 rounded p-2 bg-gray-900 items-center'>
             <Link
                 href={`/c/${props.id}/${props.name}/hot`}
-                className={clsx(linkClass, sortedBy === 'hot' && linkClassSelected)}
+                className={clsx(linkClass, (sortedBy === 'hot' || !sortedBy) && linkClassSelected)}
             >
                 <Icons.hot /> Hot
             </Link>

@@ -19,7 +19,9 @@ export interface Post {
     post_type: string, // text, image, video, link
     media_url: string | null,
     username: string,
-    community_id: number
+    community_id: number,
+    vote_count: number,
+    voted: number,
 }
 
 export interface Community {

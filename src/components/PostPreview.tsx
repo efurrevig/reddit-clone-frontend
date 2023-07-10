@@ -6,6 +6,7 @@ import Button from "./Button";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import postService from "@/services/posts";
+import Link from "next/link";
 
 const PostPreview = ({post}: {post: Post}) => {
     console.log(post)
@@ -51,19 +52,45 @@ const PostPreview = ({post}: {post: Post}) => {
     }
 
     return (
-        <div className='relative bg-gray-900 rounded mb-3 pl-10 min-h-fill'>
-            Temporary name
-            <div className='absolute items-center flex flex-col left-0 top-0'>
+        <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill'>
+            <div className='absolute bg-gray-1000 items-center flex flex-col p-2 left-0 top-0'>
                 <Button clearDefault={true} onClick={handleUpvoteClick}>
-                    <Icons.arrowUp />
+                    <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
                 </Button>
                 <div>{votes}</div>
                 <Button clearDefault={true} onClick={handleDownvoteClick}>
-                    <Icons.arrowDown />
+                    <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
                 </Button>
             </div>
-            <h1>{post.title}</h1>
-            <div>{post.body}</div>
+            <div className='relative pt-2 bg-gray-900'>
+                <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
+                    <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
+                        <span className='mr-1'>Posted by</span>
+                        <span className='hover:underline cursor-pointer'>u/TempUserName</span>
+                        <span className='mx-1'>•</span>
+                        <span >1 hour ago(tba)</span>
+                    </div>
+                </div>
+                <div className='mx-2 pr-2 inline-block text-lg break-words'>
+                    {/* <Link href='/'> */}
+                        <h3>{post.title}</h3>
+                    {/* </Link> */}
+                </div>
+                <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
+                    <div className='post-fade'>
+                        {post.body}
+                        <p>The quick brown fox jumped over the lazy cat.  The tired baseball
+                            player quickly ran home.  The hungry dog quickly ate his dinner.
+                            The brown spotted dog quickly ran across the street.  The quick
+                            brown fox jumped over the lazy cat.  The tired baseball player
+                            quickly ran home.  The hungry dog quickly ate his dinner.  The
+                        </p>
+                    </div>
+                </div>
+                <div className='flex items-center mx-2 h-10'>
+                    <Icons.comments /> <span className='text-xs text-gray-400'>1000 Comments</span>
+                </div>
+            </div>
         </div>
     )
 }

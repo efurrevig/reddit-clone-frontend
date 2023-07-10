@@ -17,6 +17,11 @@ module.exports = {
         '144': '36rem',
         '160': '40rem',
       },
+      backgroundColor: {
+        'gray-850': '#171F29',
+        'gray-1000': '#0D1117',
+        'black-1000': '#000000',
+      }
     },
   },
   plugins: [],

@@ -5,9 +5,9 @@ import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
 import CommunitySortBar from '@/components/CommunitySortBar'
 import { Post, Community } from '@/types'
 
-async function getCommunityPosts(id: number, token: string | undefined) {
-    const res = await fetch(`${process.env.BACKEND_URL}/communities/${id}}/posts`,
-        { 
+async function getCommunityPosts(id: number, sorted_by: string, token: string | undefined) {
+    const res = await fetch(`${process.env.BACKEND_URL}/communities/${id}/posts/${sorted_by}`,
+        {
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }
         }
@@ -35,8 +35,8 @@ export default async function Page({
         params: { slug: [number, string, string | null] } 
     }) {
     const session = await getServerSession(authOptions)
-    console.log(session)
-    const posts = await getCommunityPosts(params.slug[0], session?.user.accessToken)
+    const sorted_by = params.slug[2] ? params.slug[2] : 'hot'
+    const posts = await getCommunityPosts(params.slug[0], sorted_by, session?.user.accessToken)
     const community = await getCommunity(params.slug[0])
 
     return (

@@ -21,7 +21,7 @@ export interface Post {
     username: string,
     community_id: number,
     vote_count: number,
-    voted: number,
+    vote_value: number | null,
 }
 
 export interface Community {

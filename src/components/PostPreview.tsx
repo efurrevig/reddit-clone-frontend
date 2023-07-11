@@ -53,7 +53,7 @@ const PostPreview = ({post}: {post: Post}) => {
 
     return (
         <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill'>
-            <div className='absolute bg-gray-1000 items-center flex flex-col p-2 left-0 top-0'>
+            <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
                 <Button clearDefault={true} onClick={handleUpvoteClick}>
                     <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
                 </Button>
@@ -62,7 +62,7 @@ const PostPreview = ({post}: {post: Post}) => {
                     <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
                 </Button>
             </div>
-            <div className='relative pt-2 bg-gray-900'>
+            <div className='relative pt-2 bg-gray-900 rounded-r'>
                 <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
                     <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
                         <span className='mr-1'>Posted by</span>
@@ -87,7 +87,7 @@ const PostPreview = ({post}: {post: Post}) => {
                         </p>
                     </div>
                 </div>
-                <div className='flex items-center mx-2 h-10'>
+                <div className='flex items-center gap-1 mx-2 h-10'>
                     <Icons.comments /> <span className='text-xs text-gray-400'>1000 Comments</span>
                 </div>
             </div>

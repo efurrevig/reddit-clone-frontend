@@ -1,8 +1,8 @@
-
-import PostPreview  from '@/components/PostPreview'
 import { getServerSession } from 'next-auth'
 import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
+import PostPreview  from '@/components/PostPreview'
 import CommunitySortBar from '@/components/CommunitySortBar'
+import CreatePostHeader from '@/components/CreatePostHeader'
 import { Post, Community } from '@/types'
 
 async function getCommunityPosts(id: number, sorted_by: string, token: string | undefined) {
@@ -41,6 +41,7 @@ export default async function Page({
 
     return (
         <div className='my-2'>
+            <CreatePostHeader />
             <CommunitySortBar id={params.slug[0]} name={params.slug[1]} sortedBy={params.slug[2]} />
             {posts.map((post) => {
                 return (

@@ -24,6 +24,13 @@ export interface Post {
     vote_value: number | null,
 }
 
+export interface PostToCreate {
+    title: string,
+    body: string | null,
+    post_type: 'message' | 'url',
+    media_url: string | null,
+}
+
 export interface Community {
     id: number,
     name: string,

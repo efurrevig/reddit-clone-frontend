@@ -49,15 +49,22 @@ const Navbar = () => {
             </div>
 
             <div className="container flex justify-end items-center ">
-                {session?.user && <Button customClass="m-2 text-white text-2xl" clearDefault={true}> <Icons.plus /> </Button>}
-                {session?.user && <Button customClass="m-2 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}
+                {session?.user && <Button customClass="m-1 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}
+                {session?.user && 
+                    <Link
+                        href={'/submit'}
+                        className="m-1 text-white text-2xl"
+                    >
+                        <Icons.plus />
+                    </Link>      
+                }
                 {/* <div> new post </div> */}
                 {session?.user ? (
-                  <Button isLoading={isLoading} onClick={handleLogoutClick} customClass="w-18 h-8 mr-1">
+                  <Button isLoading={isLoading} onClick={handleLogoutClick} customClass="w-18 h-8 mx-1">
                     Logout
                   </Button>
                 ) : (
-                  <Button onClick={handleLoginClick} customClass="w-18 h-8 mr-1">
+                  <Button onClick={handleLoginClick} customClass="w-18 h-8 mx-1">
                     Login
                   </Button>
                 )}

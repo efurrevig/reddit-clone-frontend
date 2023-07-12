@@ -1,3 +1,4 @@
+import { PostToCreate } from "@/types"
 
 const upVote = async (id: number, token: string | undefined) => {
     const res = await fetch(`/api/backend/posts/${id}/upvote`, {
@@ -23,6 +24,24 @@ const downVote = async(id: number, token: string | undefined) => {
     return true
 }
 
-const postService = { upVote, downVote }
+const createPost = async (newPost: PostToCreate, token: string | undefined) => {
+    console.log(JSON.stringify({ post: newPost }))
+    const res = await fetch('/api/backend/communities/1/posts', {
+        method: 'POST',
+        body: JSON.stringify({ post: newPost }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token ? token : ''}`
+        },
+        cache: 'no-cache',
+    })
+
+    if (!res.ok) {
+        return false
+    }
+    return true
+} 
+
+const postService = { upVote, downVote, createPost }
 
 export default postService

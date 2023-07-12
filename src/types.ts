@@ -17,7 +17,7 @@ export interface Post {
     title: string,
     body: string,
     post_type: string, // text, image, video, link
-    media_url: string | null,
+    url: string | null,
     username: string,
     community_id: number,
     vote_count: number,
@@ -27,8 +27,8 @@ export interface Post {
 export interface PostToCreate {
     title: string,
     body: string | null,
-    post_type: 'message' | 'url',
-    media_url: string | null,
+    post_type: string,
+    url: string | null,
 }
 
 export interface Community {

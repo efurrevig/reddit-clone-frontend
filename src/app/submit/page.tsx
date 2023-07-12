@@ -1,5 +1,4 @@
-import { Icons } from "@/components/Icons";
-import PostForm from "@/components/PostForm";
+import CreatePost from "@/components/CreatePost/CreatePost";
 export default async function Page() {
 
     return (
@@ -8,7 +7,7 @@ export default async function Page() {
                 <div className='flex my-4 border-b border-gray-700 p-2'>
                     <div className='text-xl'>Create a post</div>
                 </div>
-                <PostForm />
+                <CreatePost />
             </div>
         </div>
     )

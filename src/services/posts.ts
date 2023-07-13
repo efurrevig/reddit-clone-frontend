@@ -25,7 +25,6 @@ const downVote = async(id: number, token: string | undefined) => {
 }
 
 const createPost = async (newPost: PostToCreate, token: string | undefined) => {
-    console.log(JSON.stringify({ post: newPost }))
     const res = await fetch('/api/backend/communities/1/posts', {
         method: 'POST',
         body: JSON.stringify({ post: newPost }),

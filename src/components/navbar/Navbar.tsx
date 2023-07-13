@@ -12,17 +12,15 @@ import sessionService from '@/services/sessions'
 
 const Navbar = () => {
     const [showLogin, setShowLogin] = useState(false)
-    const [showDropdown, setShowDropdown] = useState(false)
-    const [showNewCommunity, setShowNewCommunity] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
     const {data: session} = useSession();
 
 
-    const handleLoginClick = () => {
+    const showLoginModal = () => {
         setShowLogin(true)
     }
 
-    const handleLogoutClick = async () => {
+    const handleLogout = async () => {
         try {
           setIsLoading(true)
           await sessionService.logout(session?.user?.accessToken as string)
@@ -54,17 +52,19 @@ const Navbar = () => {
                     <Link
                         href={'/submit'}
                         className="m-1 text-white text-2xl"
+                        title='Create Post'
+                        data-tooltip-style='dark'
                     >
                         <Icons.plus />
                     </Link>      
                 }
                 {/* <div> new post </div> */}
                 {session?.user ? (
-                  <Button isLoading={isLoading} onClick={handleLogoutClick} customClass="w-18 h-8 mx-1">
+                  <Button isLoading={isLoading} onClick={handleLogout} customClass="w-18 h-8 mx-1">
                     Logout
                   </Button>
                 ) : (
-                  <Button onClick={handleLoginClick} customClass="w-18 h-8 mx-1">
+                  <Button onClick={showLoginModal} customClass="w-18 h-8 mx-1">
                     Login
                   </Button>
                 )}

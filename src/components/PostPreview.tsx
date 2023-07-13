@@ -9,7 +9,6 @@ import postService from "@/services/posts";
 import Link from "next/link";
 
 const PostPreview = ({post}: {post: Post}) => {
-    console.log(post)
     const [votes, setVotes] = useState(post.vote_count)
     const [upvoted, setUpvoted] = useState(post.vote_value === 1)
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)

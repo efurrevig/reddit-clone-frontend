@@ -7,6 +7,7 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import postService from "@/services/posts";
 import Link from "next/link";
+import TimeDisplay from "./TimeDisplay";
 
 const PostPreview = ({post}: {post: Post}) => {
     const [votes, setVotes] = useState(post.vote_count)
@@ -67,7 +68,7 @@ const PostPreview = ({post}: {post: Post}) => {
                         <span className='mr-1'>Posted by</span>
                         <span className='hover:underline cursor-pointer'>u/TempUserName</span>
                         <span className='mx-1'>•</span>
-                        <span >1 hour ago(tba)</span>
+                        <TimeDisplay created_at={post.created_at}/>
                     </div>
                 </div>
                 <div className='mx-2 pr-2 inline-block text-lg break-words'>
@@ -87,7 +88,7 @@ const PostPreview = ({post}: {post: Post}) => {
                     </div>
                 </div>
                 <div className='flex items-center gap-1 mx-2 h-10'>
-                    <Icons.comments /> <span className='text-xs text-gray-400'>1000 Comments</span>
+                    <Icons.comments /> <span className='text-xs text-gray-400'>{post.comment_count} Comments</span>
                 </div>
             </div>
         </div>

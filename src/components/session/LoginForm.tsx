@@ -36,6 +36,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
             console.log('login error:', error)
         } finally {
             setIsLoading(false)
+            location.reload()
         }
 
     }

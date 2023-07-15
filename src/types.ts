@@ -22,6 +22,9 @@ export interface Post {
     community_id: number,
     vote_count: number,
     vote_value: number | null,
+    comment_count: number,
+    created_at: string,
+    updated_at: string,
 }
 
 export interface PostToCreate {

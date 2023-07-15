@@ -30,6 +30,7 @@ const Navbar = () => {
         }
         await signOut({redirect: false})
         setIsLoading(false)
+        location.reload()
     }
 
     return (

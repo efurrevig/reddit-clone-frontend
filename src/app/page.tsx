@@ -22,7 +22,6 @@ async function getPosts(token: string | undefined) {
 export default async function Home() {
     const session = await getServerSession(authOptions)
     const posts = await getPosts(session?.user.accessToken)
-    console.log(posts.length)
 
     return (
         <main>

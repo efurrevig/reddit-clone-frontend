@@ -16,19 +16,28 @@ const CommunitySortBar = (
     return (
         <div className='flex mb-3 gap-5 h-14 rounded p-2 bg-gray-900 items-center'>
             <Link
-                href={`/c/${props.id}/${props.name}/hot`}
+                href={{
+                    pathname: `/c/${props.id}/${props.name}`,
+                    query: { sort : 'hot' } 
+                }}
                 className={clsx(linkClass, (sortedBy === 'hot' || !sortedBy) && linkClassSelected)}
             >
                 <Icons.hot /> Hot
             </Link>
             <Link
-                href={`/c/${props.id}/${props.name}/new`}
+                href={{
+                    pathname: `/c/${props.id}/${props.name}`,
+                    query: { sort : 'new' } 
+                }}
                 className={clsx(linkClass, sortedBy === 'new' && linkClassSelected)}
             >
                 <Icons.new /> New
             </Link>
             <Link
-                href={`/c/${props.id}/${props.name}/top`}
+                href={{
+                    pathname: `/c/${props.id}/${props.name}`,
+                    query: { sort : 'top' }     
+                }}
                 className={clsx(linkClass, sortedBy === 'top' && linkClassSelected)}
             >
                 <Icons.top /> Top

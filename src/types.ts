@@ -20,6 +20,8 @@ export interface Post {
     url: string | null,
     username: string,
     community_id: number,
+    community_name: string,
+    author: string,
     vote_count: number,
     vote_value: number | null,
     comment_count: number,
@@ -37,4 +39,5 @@ export interface PostToCreate {
 export interface Community {
     id: number,
     name: string,
+    description: string,
 }

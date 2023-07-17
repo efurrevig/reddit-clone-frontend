@@ -65,9 +65,10 @@ const PostPreview = ({post}: {post: Post}) => {
             <div className='relative pt-2 bg-gray-900 rounded-r'>
                 <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
                     <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
-                        <span className='mr-1'>Posted by</span>
-                        <span className='hover:underline cursor-pointer'>u/TempUserName</span>
+                        <span className='text-white'>c/{post.community_name}</span>
                         <span className='mx-1'>•</span>
+                        <span className='mr-1'>Posted by</span>
+                        <span className='hover:underline cursor-pointer mr-1'>u/{post.author}</span>
                         <TimeDisplay created_at={post.created_at}/>
                     </div>
                 </div>

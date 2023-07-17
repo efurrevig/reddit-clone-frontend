@@ -31,18 +31,22 @@ async function getCommunity(id: number) {
 
 
 export default async function Page({ 
-    params }: {        // c_id   c_name    post_sort TBA
-        params: { slug: [number, string, string | null] } 
-    }) {
+    params,
+    searchParams }: {        // c_id   c_name    post_sort TBA
+        params: { community_id: number, c_name: string  }
+        searchParams: { sort: 'hot' | 'new' | 'top' | undefined}
+    })  {
+    
+    console.log(searchParams)
     const session = await getServerSession(authOptions)
-    const sorted_by = params.slug[2] ? params.slug[2] : 'hot'
-    const posts = await getCommunityPosts(params.slug[0], sorted_by, session?.user.accessToken)
-    const community = await getCommunity(params.slug[0])
+    const sorted_by = searchParams.sort === undefined ? 'hot' : searchParams.sort
+    const posts = await getCommunityPosts(params.community_id, sorted_by, session?.user.accessToken)
+    const community = await getCommunity(params.community_id)
 
     return (
         <div className='my-2'>
             <CreatePostHeader />
-            <CommunitySortBar id={params.slug[0]} name={params.slug[1]} sortedBy={params.slug[2]} />
+            <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
             {posts.map((post) => {
                 return (
                     <PostPreview key={post.id} post={post}  />

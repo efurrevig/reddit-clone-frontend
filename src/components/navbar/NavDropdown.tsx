@@ -3,16 +3,17 @@ import Button from '@/components/Button'
 import Link from 'next/link'
 import { Icons } from '@/components/Icons'
 import { useEffect, useState } from 'react'
+// import { usePathname } from 'next/navigation'
 import communityService from '@/services/communities'
 import { Community } from '@/types'
 
 const NavDropdown = () => {
-    const [showDropdown, setShowDropdown] = useState(false)
+    const [showDropdown, setShowDropdown] = useState<boolean>(false)
     const [communities, setCommunities] = useState<Community[]>([])
     const initialDropdownItems = [
         {name: 'Create Community', icon: <Icons.plus />, onClick: () => console.log('create community')},
     ]
-
+    
     useEffect(() => {
         const getCommunities = async () => {
             const communities = await communityService.getAll()

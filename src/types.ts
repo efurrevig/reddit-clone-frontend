@@ -25,6 +25,22 @@ export interface Post {
     vote_count: number,
     vote_value: number | null,
     comment_count: number,
+    is_deleted: boolean,
+    created_at: string,
+    updated_at: string,
+}
+
+export interface Comment {
+    id: number,
+    user_id: number,
+    body: string,
+    commentable_type: 'Post' | 'Comment',
+    commentable_id: number,
+    root_id: number,
+    depth: number,
+    author: string,
+    vote_count: number,
+    is_deleted: boolean,
     created_at: string,
     updated_at: string,
 }

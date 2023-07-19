@@ -32,10 +32,10 @@ async function getCommunity(id: number) {
 
 export default async function Page({ 
     params,
-    searchParams }: {        // c_id   c_name    post_sort TBA
+    searchParams } : {        // c_id   c_name    post_sort TBA
         params: { community_id: number, c_name: string  }
-        searchParams: { sort: 'hot' | 'new' | 'top' | undefined}
-    })  {
+        searchParams: { sort: 'hot' | 'new' | 'top' | undefined} 
+})  {
     
     console.log(searchParams)
     const session = await getServerSession(authOptions)

@@ -43,6 +43,7 @@ export interface Comment {
     is_deleted: boolean,
     created_at: string,
     updated_at: string,
+    nested_comments: Comment[]
 }
 
 export interface PostToCreate {

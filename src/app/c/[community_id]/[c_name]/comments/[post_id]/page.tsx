@@ -1,8 +1,11 @@
 import { getServerSession } from "next-auth"
 import { authOptions } from "@/app/api/auth/[...nextauth]/route"
+import { pack_comments } from "@/utils/helpers"
+import CommentDisplay from "@/components/CommentDisplay"
+import { Comment } from "@/types"
 
 async function getPost(post_id: number, community_id: number, token?: string) {
-    const res = await fetch(`${process.env.BACKEND_URL}/communities/${community_id}/posts/${post_id}`,
+    const res = await fetch(`${process.env.BACKEND_URL}/posts/${post_id}`,
         {
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }
@@ -10,7 +13,8 @@ async function getPost(post_id: number, community_id: number, token?: string) {
     )
     // GET    /api/communities/:community_id/posts/:id(.:format)                                                posts#show
 
-    return await res.json()
+    const data = await res.json()
+    return data.data
 }
 
 
@@ -18,10 +22,17 @@ export default async function Page({
     params } : { params: { post_id: number, community_id: number, c_name: string }
 }) {
     const session = await getServerSession(authOptions)
-    const post = await getPost(params.post_id, params.community_id, session?.user.accessToken)
-    console.log(post)
-    console.log(post.data.comments)
+    const data = await getPost(params.post_id, params.community_id, session?.user.accessToken)
+    const post = data.post
+    const comments = pack_comments(JSON.parse(data.comments) as Comment[])
+    console.log(comments)
     return (
-        <div className='z-[10] bg-white'>Comments</div>
+        <div>
+            {comments.map((c) => {
+                return (
+                    <CommentDisplay key={c.id} comment={c} />
+                )
+            })}
+        </div>
     )
 }

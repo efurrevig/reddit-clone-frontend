@@ -88,8 +88,13 @@ const PostPreview = ({post}: {post: Post}) => {
                         </p>
                     </div>
                 </div>
-                <div className='flex items-center gap-1 mx-2 h-10'>
-                    <Icons.comments /> <span className='text-xs text-gray-400'>{post.comment_count} Comments</span>
+                <div className='flex'>
+                    <Link
+                        href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
+                        className='flex items-center p-1 gap-1 mx-2 mb-0.5 h-10 text-xs hover:bg-gray-800'
+                    >
+                        <Icons.comments /> {post.comment_count} Comments
+                    </Link>
                 </div>
             </div>
         </div>

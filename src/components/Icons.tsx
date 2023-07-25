@@ -82,7 +82,7 @@ export const Icons = {
             viewBox="0 0 24 24" 
             fill={props.fill || "none"}
             stroke="currentColor" 
-            strokeWidth="2" 
+            strokeWidth={props.strokeWidth || "2"} 
             strokeLinecap="round" 
             strokeLinejoin="round" 
             className="lucide lucide-arrow-big-up"
@@ -97,7 +97,7 @@ export const Icons = {
             viewBox="0 0 24 24" 
             fill={props.fill || "none"} 
             stroke="currentColor" 
-            strokeWidth="2" 
+            strokeWidth={props.strokeWidth || "2"} 
             strokeLinecap="round" 
             strokeLinejoin="round" 
             className="lucide lucide-arrow-big-down"
@@ -188,8 +188,8 @@ export const Icons = {
     ),
     comments: (props: LucideProps) => (
         <svg xmlns="http://www.w3.org/2000/svg" 
-            width="24" 
-            height="24" 
+            width={props.height || "24"}
+            height={props.height || "24"}
             viewBox="0 0 24 24" 
             fill="none" 
             stroke="currentColor" 
@@ -217,6 +217,22 @@ export const Icons = {
             <path d="M7 8h10"/>
             <path d="M7 12h10"/>
             <path d="M7 16h10"/>
+        </svg>
+    ),
+    tempUser: (props: LucideProps) => (
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width={props.width || "24"}
+            height={props.height || "24"} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="lucide lucide-user-circle-2"
+        >
+            <path d="M18 20a6 6 0 0 0-12 0"/>
+            <circle cx="12" cy="10" r="4"/><circle cx="12" cy="12" r="10"/>
         </svg>
     ),
 }

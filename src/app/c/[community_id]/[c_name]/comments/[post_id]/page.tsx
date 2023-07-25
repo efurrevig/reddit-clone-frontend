@@ -27,7 +27,7 @@ export default async function Page({
     const comments = pack_comments(JSON.parse(data.comments) as Comment[])
     console.log(comments)
     return (
-        <div>
+        <div className="bg-gray-900 rounded flex flex-col gap-2">
             {comments.map((c) => {
                 return (
                     <CommentDisplay key={c.id} comment={c} />

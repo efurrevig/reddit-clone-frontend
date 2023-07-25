@@ -1,5 +1,5 @@
 
-const TimeDisplay = ( props: { created_at: string}) => {
+const TimeDisplay = ( props: { created_at: string }) => {
     const getTimeDifference = (timestamp: string) => {
       const currentTime = new Date()
       const previousTime = new Date(timestamp)

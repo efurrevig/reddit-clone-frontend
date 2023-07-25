@@ -1,4 +1,11 @@
 import { Comment } from "../types";
+
+// Iterates backwards through comments array. 
+//
+// Comment array is sorted by depth.  We iterate backwards because it's unknown how many nested comments there are for each parent.
+// Iterating forward would require checking all of depth i for every comment, regardless of if it has nested comments.
+// Iterating forward would also require finding the parent comment in the nested_comments of all parents in the tree in order to properly insert
+// Iterating backwards guarentees that we only check depth i, can stop as soon as the parent is found, and can be inserted into parent's nested_comments immediately
 export function pack_comments(comments: Comment[], level: number = 0) {
     const nested_comments = []
     for (let i = comments.length-1; i >= 0; i--) {
@@ -19,7 +26,8 @@ export function pack_comments(comments: Comment[], level: number = 0) {
 }
 
 //pack_comments helpers
-
+//
+// Iterates through comments array at depth i, and returned index of parent comment (o(n))
 function find_parent_comment_index(comments: Comment[], depth: number, commentable_id: number) {
 
     const depth_index = get_depth_index(comments, depth)
@@ -32,6 +40,8 @@ function find_parent_comment_index(comments: Comment[], depth: number, commentab
     return -1
 }
 
+
+// Binary search to find index of first comment at depth i (logn)
 function get_depth_index(comments: Comment[], level: number) {
     let l = 0
     let r = comments.length - 1

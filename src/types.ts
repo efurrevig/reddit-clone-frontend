@@ -39,6 +39,7 @@ export interface Comment {
     root_id: number,
     depth: number,
     author: string,
+    vote_value: number | null,
     vote_count: number,
     is_deleted: boolean,
     created_at: string,

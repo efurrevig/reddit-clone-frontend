@@ -7,6 +7,7 @@ import { Comment } from "@/types"
 async function getPost(post_id: number, community_id: number, token?: string) {
     const res = await fetch(`${process.env.BACKEND_URL}/posts/${post_id}`,
         {
+            method: 'GET',
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }
         }

@@ -27,7 +27,7 @@ const NavDropdown = () => {
         setShowDropdown(!showDropdown)
     }
     const dropdownClass = `relative w-64 h-12 text-sm flex flex-col border border-transparent ${showDropdown ? 'border-slate-500' : ''} hover:border-slate-500 rounded pt-1`
-
+    //onfocus, onblur for border
     return (
         <div className={dropdownClass}>
             <Button clearDefault={true} onClick={handleDropdownClick} customClass='min-h-full px-2 items-center flex flex-row justify-between'>

@@ -34,7 +34,7 @@ export default async function Page({
         <div className="bg-gray-900 rounded flex flex-col gap-2">
             <div className='flex flex-col'>
                 <PostDisplay post={post} c_name={params.c_name} />
-                <CommentForm post_id={post.id} />
+                <CommentForm parent_id={post.id} parent_type={"Post"} />
             </div>
             <div className="mx-2">
                 {comments.map((c) => {

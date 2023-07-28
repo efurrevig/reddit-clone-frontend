@@ -21,6 +21,7 @@ const CommunitySortBar = (
                     query: { sort : 'hot' } 
                 }}
                 className={clsx(linkClass, (sortedBy === 'hot' || !sortedBy) && linkClassSelected)}
+                prefetch={false}
             >
                 <Icons.hot /> Hot
             </Link>
@@ -30,6 +31,7 @@ const CommunitySortBar = (
                     query: { sort : 'new' } 
                 }}
                 className={clsx(linkClass, sortedBy === 'new' && linkClassSelected)}
+                prefetch={false}
             >
                 <Icons.new /> New
             </Link>
@@ -39,6 +41,7 @@ const CommunitySortBar = (
                     query: { sort : 'top' }     
                 }}
                 className={clsx(linkClass, sortedBy === 'top' && linkClassSelected)}
+                prefetch={false}
             >
                 <Icons.top /> Top
             </Link>

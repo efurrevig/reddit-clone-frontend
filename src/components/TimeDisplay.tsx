@@ -1,3 +1,4 @@
+'use client'
 
 const TimeDisplay = ( props: { created_at: string }) => {
     const getTimeDifference = (timestamp: string) => {

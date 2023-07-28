@@ -92,6 +92,7 @@ const PostPreview = ({post}: {post: Post}) => {
                     <Link
                         href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
                         className='flex items-center p-1 gap-1 mx-2 mb-0.5 h-10 text-xs hover:bg-gray-800'
+                        prefetch={false}
                     >
                         <Icons.comments /> {post.comment_count} Comments
                     </Link>

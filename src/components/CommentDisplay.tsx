@@ -1,5 +1,5 @@
 'use client'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import commentService from "@/services/comments";
 import { Comment } from "@/types";
@@ -9,11 +9,15 @@ import TimeDisplay from "./TimeDisplay";
 import CommentForm from "./CommentForm";
 
 const CommentDisplay = ({ comment } : { comment: Comment}) => {
-    const [votes, setVotes] = useState(comment.vote_count)
-    const [upvoted, setUpvoted] = useState(comment.vote_value === 1)
-    const [downvoted, setDownvoted] = useState(comment.vote_value === -1)
-    const [showReplyForm, setShowReplyForm] = useState(false)
+    const [votes, setVotes] = useState<number>(comment.vote_count)
+    const [upvoted, setUpvoted] = useState<boolean>(comment.vote_value === 1)
+    const [downvoted, setDownvoted] = useState<boolean>(comment.vote_value === -1)
+    const [showCommentForm, setShowCommentForm] = useState<boolean>(false)
+    const [newUserCommments, setNewUserComments] = useState<Comment[]>([])
     const { data: session } = useSession()
+
+    // useEffect(() => {
+    // }, [newUserComments])
 
     const handleUpvoteClick = async () => {
         const res = await commentService.upVote(comment.id, session?.user?.accessToken)
@@ -81,7 +85,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
                         <Button 
                             clearDefault={true} 
-                            onClick={() => setShowReplyForm(!showReplyForm)}
+                            onClick={() => setShowCommentForm(!showCommentForm)}
                             customClass="flex gap-1 text-xs items-center text-gray-400"
                         >
                             <Icons.comments strokeWidth=".5" height="20" width="20" /> Reply
@@ -89,9 +93,20 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
                     </div>
                 </div>
-                {showReplyForm ? (
-                    <CommentForm parent_id={comment.id} parent_type={"Comment"} />
+                {showCommentForm ? (
+                    <CommentForm 
+                        parent_id={comment.id} 
+                        parent_type={"Comment"} 
+                        setNewUserComments={setNewUserComments}
+                        newUserComments={newUserCommments}
+                        setShowCommentForm={setShowCommentForm}
+                    />
                 ) : null}
+                {newUserCommments.map((c) => {
+                    return (
+                        <CommentDisplay key={c.id} comment={c} />
+                    )
+                })}
                 {comment.nested_comments ? (
                     comment.nested_comments.map((c) => {
                     return (

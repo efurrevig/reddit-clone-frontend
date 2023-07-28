@@ -47,6 +47,12 @@ export interface Comment {
     nested_comments: Comment[]
 }
 
+export interface CommentToCreate {
+    body: string,
+    commentable_type: 'Post' | 'Comment',
+    commentable_id: number,
+}
+
 export interface PostToCreate {
     title: string,
     body: string | null,

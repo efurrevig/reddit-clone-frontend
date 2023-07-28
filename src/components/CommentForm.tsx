@@ -1,19 +1,54 @@
 'use client'
 import { useState } from "react"
 import Button from "./Button"
+import { Comment } from "@/types"
+import commentService from "@/services/comments"
+import { useSession } from "next-auth/react"
 
 
 
-const CommentForm = ({ parent_id, parent_type } : { parent_id: number, parent_type: "Comment" | "Post" }) => {
+const CommentForm = ({ 
+    parent_id, 
+    parent_type, 
+    setNewUserComments,
+    newUserComments,
+    setShowCommentForm, } : { 
+        parent_id: number, 
+        parent_type: "Comment" | "Post",
+        newUserComments: Comment[],
+        setNewUserComments: React.Dispatch<React.SetStateAction<Comment[]>>,
+        setShowCommentForm: React.Dispatch<React.SetStateAction<boolean>>,
+}) => {
+
     const [comment, setComment] = useState<string>('')
     const [loading, setLoading] = useState<boolean>(false)
     const [formSelected, setFormSelected] = useState(false)
+    const { data: session } = useSession()
+
+    const setSavedComment = (comment: Comment) => {
+        comment.author = session?.user?.username as string
+        comment.vote_value = null
+        comment.vote_count = 0
+        return comment
+    }
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setLoading(true)
+        const newComment = {
+            body: comment,
+            commentable_type: parent_type,
+            commentable_id: parent_id
+        }
         try {
-            console.log('comment', comment)
+            const savedComment = await commentService.create(newComment, session?.user?.accessToken)
+            console.log('comment', savedComment)
+            if (savedComment) {
+                setNewUserComments([...newUserComments, setSavedComment(savedComment)])
+                setComment('')
+                setShowCommentForm(false)
+            }
+
         } catch (error) {
             console.log(error)
         } finally {

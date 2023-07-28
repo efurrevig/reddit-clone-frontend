@@ -6,6 +6,7 @@ import PostDisplay from "@/components/PostDisplay"
 import CommentForm from "@/components/CommentForm"
 import { Comment } from "@/types"
 import { Post } from "@/types"
+import CommentTree from "@/components/CommentTree"
 
 async function getPost(post_id: number, community_id: number, token?: string) {
     const res = await fetch(`${process.env.BACKEND_URL}/posts/${post_id}`,
@@ -32,17 +33,8 @@ export default async function Page({
 
     return (
         <div className="bg-gray-900 rounded flex flex-col gap-2">
-            <div className='flex flex-col'>
-                <PostDisplay post={post} c_name={params.c_name} />
-                <CommentForm parent_id={post.id} parent_type={"Post"} />
-            </div>
-            <div className="mx-2">
-                {comments.map((c) => {
-                    return (
-                        <CommentDisplay key={c.id} comment={c} />
-                    )
-                })}
-            </div>
+            <PostDisplay post={post} c_name={params.c_name} />
+            <CommentTree comments={comments} post_id={post.id} />
         </div>
     )
 }

@@ -17,7 +17,7 @@ const CommentForm = ({
         parent_type: "Comment" | "Post",
         newUserComments: Comment[],
         setNewUserComments: React.Dispatch<React.SetStateAction<Comment[]>>,
-        setShowCommentForm: React.Dispatch<React.SetStateAction<boolean>>,
+        setShowCommentForm?: React.Dispatch<React.SetStateAction<boolean>>,
 }) => {
 
     const [comment, setComment] = useState<string>('')
@@ -46,7 +46,9 @@ const CommentForm = ({
             if (savedComment) {
                 setNewUserComments([...newUserComments, setSavedComment(savedComment)])
                 setComment('')
-                setShowCommentForm(false)
+                if (setShowCommentForm) {
+                    setShowCommentForm(false)
+                }
             }
 
         } catch (error) {

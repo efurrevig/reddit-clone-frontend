@@ -57,6 +57,7 @@ const NavDropdown = () => {
                                 href={`/c/${community.id}/${community.name}`}
                                 key={community.id} 
                                 className='flex flex-row gap-1 py-1 px-4 hover:bg-gray-700 items-center'
+                                prefetch={false}
                             >
                                 <Icons.logo  />
                                 <div>c/{community.name}</div>

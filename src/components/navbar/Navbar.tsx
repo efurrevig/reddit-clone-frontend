@@ -40,7 +40,11 @@ const Navbar = () => {
             {showLogin && <SessionForm setShowForm={setShowLogin} />}
 
             <div className="container flex max-w-7x1 h-full mx-auto items-center gap-5 ">
-                <Link href="/" className="flex gap-2 items-center">
+                <Link 
+                    href="/" 
+                    className="flex gap-2 items-center"
+                    prefetch={false}
+                >
                     <Icons.logo className="h-8 w-8 sm:h-6 sm:w-6"  />
                     <p className="hidden font-medium md:block">Creddit</p>
                 </ Link>

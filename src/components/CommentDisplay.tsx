@@ -86,7 +86,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
             {showDeleteConfirmation && (
                 <ConfirmationModal
                     closeModal={handleDropdownDeleteClick}
-                    comment_id={comment.id}
+                    comment={comment}
                 />
             )}
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">

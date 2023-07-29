@@ -45,6 +45,19 @@ const create = async (newComment: CommentToCreate, token: string | undefined) =>
     return data.data as Comment
 }
 
-const commentService = { upVote, downVote, create }
+const deleteComment = async (id: number, token: string | undefined) => {
+    const res = await fetch(`/api/backend/comments/${id}`, {
+        method: 'DELETE',
+        headers: {'Authorization': `${token ? token : ''}`},
+        cache: 'no-cache',
+    })
+
+    if (!res.ok) {
+        return false
+    }
+    return true
+}
+
+const commentService = { upVote, downVote, create, deleteComment }
 
 export default commentService

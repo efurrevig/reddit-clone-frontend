@@ -8,6 +8,7 @@ import Button from "./Button";
 import TimeDisplay from "./TimeDisplay";
 import CommentForm from "./CommentForm";
 import ConfirmationModal from "./ConfirmationModal";
+import EditCommentForm from "./EditCommentForm";
 
 const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [votes, setVotes] = useState<number>(comment.vote_count)
@@ -17,6 +18,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [newUserCommments, setNewUserComments] = useState<Comment[]>([])
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false)
+    const [showEditForm, setShowEditForm] = useState<boolean>(false)
 
     const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
@@ -98,15 +100,23 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
             <div className="border-l-2 border-gray-700 px-2">
                 <div className="ml-2 flex flex-col">
 
-                    <div className="text-sm break-words">
-                        {comment.is_deleted ? (
-                            <span> [deleted] </span>
-                        ) : (
-                            <span> {comment.body} </span>
-                        )}
-                    </div>
+                    {showEditForm ? (
+                        <EditCommentForm
+                            comment={comment}
+                            setShowEditForm={setShowEditForm}
+                        />
+                    ) : (
+                        <div className="text-sm break-words">
+                            {comment.is_deleted ? (
+                                <span> [deleted] </span>
+                            ) : (
+                                <span> {comment.body} </span>
+                            )}
+                        </div>
+                    )}
 
-                    <div className="flex gap-2 -ml-1 mt-1 text-gray-400">
+                    {!showEditForm ? (
+                        <div className="flex gap-2 -ml-1 mt-1 text-gray-400">
 
                         <div className="flex gap-1 text-sm items-center">
                             <Button clearDefault={true} onClick={handleUpvoteClick}>
@@ -127,7 +137,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                         </Button>
                         
                         {/* edit/delete comment dropdown */}
-                        {session?.user?.id === comment.user_id ? (
+                        {session?.user?.id === comment.user_id && !comment.is_deleted ? (
 
                             <div className='relative'>
                                 <Button
@@ -144,7 +154,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                                     >
                                         <Button
                                             clearDefault={true}
-                                            onClick={() => console.log('edit')}
+                                            onClick={() => setShowEditForm(true)}
                                             customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
                                         >
                                             <Icons.edit />
@@ -164,10 +174,11 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
                         ) : null}
 
-                    </div>
+                        </div>
+                    ) : null }
                 </div>
                 {showCommentForm ? (
-                    <CommentForm 
+                    <CommentForm
                         parent_id={comment.id} 
                         parent_type={"Comment"} 
                         setNewUserComments={setNewUserComments}

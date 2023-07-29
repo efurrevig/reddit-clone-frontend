@@ -45,6 +45,23 @@ const create = async (newComment: CommentToCreate, token: string | undefined) =>
     return data.data as Comment
 }
 
+const edit = async (id: number, body: string, token: string | undefined) => {
+    const res = await fetch(`/api/backend/comments/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ comment: { body } }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token ? token : ''}`
+        },
+        cache: 'no-cache',
+    })
+    if (!res.ok) {
+        return false
+    }
+    const data = await res.json()
+    return data.data as Comment
+}
+
 const deleteComment = async (id: number, token: string | undefined) => {
     const res = await fetch(`/api/backend/comments/${id}`, {
         method: 'DELETE',
@@ -58,6 +75,6 @@ const deleteComment = async (id: number, token: string | undefined) => {
     return true
 }
 
-const commentService = { upVote, downVote, create, deleteComment }
+const commentService = { upVote, downVote, create, edit, deleteComment }
 
 export default commentService

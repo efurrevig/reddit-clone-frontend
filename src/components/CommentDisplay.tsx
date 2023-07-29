@@ -74,6 +74,12 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
     const handleDropdownDeleteClick = () => {
         setShowDeleteConfirmation(!showDeleteConfirmation)
+        setShowDropdown(false)
+    }
+
+    const handleEditCommentClick = () => {
+        setShowEditForm(!showEditForm)
+        setShowDropdown(false)
     }
 
     useEffect(() => {
@@ -154,7 +160,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                                     >
                                         <Button
                                             clearDefault={true}
-                                            onClick={() => setShowEditForm(true)}
+                                            onClick={handleEditCommentClick}
                                             customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
                                         >
                                             <Icons.edit />

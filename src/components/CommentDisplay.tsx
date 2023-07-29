@@ -66,12 +66,6 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
         console.log(showDropdown)
     }
 
-    const handleClickOutsideDropdown = (e: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-            setShowDropdown(false)
-        }
-    }
-
     const handleDropdownDeleteClick = () => {
         setShowDeleteConfirmation(!showDeleteConfirmation)
         setShowDropdown(false)
@@ -80,6 +74,12 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const handleEditCommentClick = () => {
         setShowEditForm(!showEditForm)
         setShowDropdown(false)
+    }
+
+    const handleClickOutsideDropdown = (e: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+            setShowDropdown(false)
+        }
     }
 
     useEffect(() => {
@@ -116,7 +116,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                             {comment.is_deleted ? (
                                 <span> [deleted] </span>
                             ) : (
-                                <span> {comment.body} </span>
+                                <span className="whitespace-pre-line"> {comment.body} </span>
                             )}
                         </div>
                     )}

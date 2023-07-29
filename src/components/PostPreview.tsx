@@ -79,13 +79,7 @@ const PostPreview = ({post}: {post: Post}) => {
                 </div>
                 <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
                     <div className='post-fade'>
-                        {post.body}
-                        <p>The quick brown fox jumped over the lazy cat.  The tired baseball
-                            player quickly ran home.  The hungry dog quickly ate his dinner.
-                            The brown spotted dog quickly ran across the street.  The quick
-                            brown fox jumped over the lazy cat.  The tired baseball player
-                            quickly ran home.  The hungry dog quickly ate his dinner.  The
-                        </p>
+                        <span className="whitespace-pre-line">{post.body}</span>
                     </div>
                 </div>
                 <div className='flex'>

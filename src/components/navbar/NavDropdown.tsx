@@ -2,7 +2,7 @@
 import Button from '@/components/Button'
 import Link from 'next/link'
 import { Icons } from '@/components/Icons'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useRef } from 'react'
 // import { usePathname } from 'next/navigation'
 import communityService from '@/services/communities'
 import { Community } from '@/types'
@@ -26,10 +26,28 @@ const NavDropdown = () => {
     const handleDropdownClick = () => {
         setShowDropdown(!showDropdown)
     }
-    const dropdownClass = `relative w-64 h-12 text-sm flex flex-col border border-transparent ${showDropdown ? 'border-slate-500' : ''} hover:border-slate-500 rounded pt-1`
+
+    const dropdownRef = useRef<HTMLDivElement>(null)
+
+    const handleClickOutsideDropdown = (e: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+            setShowDropdown(false)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutsideDropdown)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideDropdown)
+        }
+    }, [])
+    
     //onfocus, onblur for border
     return (
-        <div className={dropdownClass}>
+        <div 
+            className={`relative w-64 h-12 text-sm flex flex-col border ${showDropdown === true ? 'border-slate-500' : 'border-transparent'} hover:border-slate-500 rounded`}
+            ref={dropdownRef}
+        >
             <Button clearDefault={true} onClick={handleDropdownClick} customClass='min-h-full px-2 items-center flex flex-row justify-between'>
                 <div>NavDropdown</div>
                 <Icons.chevronDown />

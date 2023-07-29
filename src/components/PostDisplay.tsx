@@ -75,7 +75,7 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
                     {/* </Link> */}
                 </div>
                 <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
-                        {post.body}
+                        <span className="whitespace-pre-line">{post.body}</span>
                 </div>
                 <div className='flex items-center p-1 gap-1 mb-0.5 h-10 text-xs'>
                         <Icons.comments /> {post.comment_count} Comments

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import commentService from "@/services/comments";
 import { Comment } from "@/types";
@@ -14,10 +14,12 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [downvoted, setDownvoted] = useState<boolean>(comment.vote_value === -1)
     const [showCommentForm, setShowCommentForm] = useState<boolean>(false)
     const [newUserCommments, setNewUserComments] = useState<Comment[]>([])
+    const [showDropdown, setShowDropdown] = useState<boolean>(false)
+
+    const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
 
-    // useEffect(() => {
-    // }, [newUserComments])
+
 
     const handleUpvoteClick = async () => {
         const res = await commentService.upVote(comment.id, session?.user?.accessToken)
@@ -55,6 +57,24 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
         }
     }
 
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown)
+        console.log(showDropdown)
+    }
+
+    const handleClickOutsideDropdown = (e: MouseEvent) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+            setShowDropdown(false)
+        }
+    }
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutsideDropdown)
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutsideDropdown)
+        }
+    }, [])
+
     return (
         <div className="ml-4 flex flex-col gap-2 pt-2">
 
@@ -68,7 +88,11 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                 <div className="ml-2 flex flex-col">
 
                     <div className="text-sm break-words">
-                        {comment.body}
+                        {comment.is_deleted ? (
+                            <span> [deleted] </span>
+                        ) : (
+                            <span> {comment.body} </span>
+                        )}
                     </div>
 
                     <div className="flex gap-2 -ml-1 mt-1 text-gray-400">
@@ -90,6 +114,44 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                         >
                             <Icons.comments strokeWidth=".5" height="20" width="20" /> Reply
                         </Button>
+                        
+                        {/* edit/delete comment dropdown */}
+                        {session?.user?.id === comment.user_id ? (
+
+                            <div className='relative'>
+                                <Button
+                                    clearDefault={true}
+                                    onClick={toggleDropdown}
+                                    customClass="flex gap-1 text-xs items-center text-gray-400"
+                                >
+                                    <Icons.elipsis />
+                                </Button>
+                                {showDropdown ? (
+                                    <div 
+                                        className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
+                                        ref={dropdownRef}
+                                    >
+                                        <Button
+                                            clearDefault={true}
+                                            onClick={() => console.log('edit')}
+                                            customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
+                                        >
+                                            <Icons.edit />
+                                            Edit
+                                        </Button>
+                                        <Button
+                                            clearDefault={true}
+                                            onClick={() => console.log('delete')}
+                                            customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
+                                        >
+                                            <Icons.trash />
+                                            Delete
+                                        </Button>
+                                    </div>
+                                ) : null}
+                            </div>
+
+                        ) : null}
 
                     </div>
                 </div>

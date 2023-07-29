@@ -7,6 +7,7 @@ import { Icons } from "./Icons";
 import Button from "./Button";
 import TimeDisplay from "./TimeDisplay";
 import CommentForm from "./CommentForm";
+import ConfirmationModal from "./ConfirmationModal";
 
 const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [votes, setVotes] = useState<number>(comment.vote_count)
@@ -15,6 +16,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [showCommentForm, setShowCommentForm] = useState<boolean>(false)
     const [newUserCommments, setNewUserComments] = useState<Comment[]>([])
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false)
 
     const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
@@ -68,6 +70,10 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
         }
     }
 
+    const handleDropdownDeleteClick = () => {
+        setShowDeleteConfirmation(!showDeleteConfirmation)
+    }
+
     useEffect(() => {
         document.addEventListener('mousedown', handleClickOutsideDropdown)
         return () => {
@@ -77,7 +83,12 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
     return (
         <div className="ml-4 flex flex-col gap-2 pt-2">
-
+            {showDeleteConfirmation && (
+                <ConfirmationModal
+                    closeModal={handleDropdownDeleteClick}
+                    comment_id={comment.id}
+                />
+            )}
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">
                 <Icons.tempUser /> {comment.author}
                 <span className='text-gray-400 font-thin'> • </span> 
@@ -141,7 +152,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                                         </Button>
                                         <Button
                                             clearDefault={true}
-                                            onClick={() => console.log('delete')}
+                                            onClick={handleDropdownDeleteClick}
                                             customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
                                         >
                                             <Icons.trash />

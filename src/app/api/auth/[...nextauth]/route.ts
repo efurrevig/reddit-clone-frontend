@@ -1,6 +1,7 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import { NextAuthOptions } from 'next-auth'
+import { signOut } from 'next-auth/react'
 
 export const authOptions: NextAuthOptions = {
     providers: [
@@ -27,12 +28,10 @@ export const authOptions: NextAuthOptions = {
                 const token = await res.headers.get('Authorization')
                 user.data.accessToken = token
                 if (res.ok && user.data) {
-                    console.log('Route success')
                     // Any object returned will be saved in `user` property of the JWT
                     return user.data
                 } else {
                     // If you return null or false then the credentials will be rejected
-                    console.log(user)
                     throw new Error('Invalid credentials')
                     // You can also Reject this callback with an Error or with a URL:
                     // throw new Error('error message') // Redirect to error page
@@ -43,7 +42,7 @@ export const authOptions: NextAuthOptions = {
     ],
     session: {
         strategy: 'jwt',
-        maxAge: 5 * 60 * 60
+        maxAge: 60 * 60 * 5
     },
     callbacks: {
         async jwt({ token, user }) {

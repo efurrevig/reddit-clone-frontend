@@ -5,6 +5,7 @@ import Link from 'next/link'
 import Button from '../Button'
 import SessionForm from '../session/SessionForm'
 import NavDropdown from './NavDropdown'
+import SearchBar from './SearchBar'
 import { useSession, signOut } from 'next-auth/react'
 import { Icons } from '../Icons'
 import { useState } from 'react'
@@ -39,7 +40,7 @@ const Navbar = () => {
             {/* login modal */}
             {showLogin && <SessionForm setShowForm={setShowLogin} />}
 
-            <div className="container flex max-w-7x1 h-full mx-auto items-center gap-5 ">
+            <div className="container flex  h-full mx-auto items-center gap-5 ">
                 <Link 
                     href="/" 
                     className="flex gap-2 items-center"
@@ -49,7 +50,11 @@ const Navbar = () => {
                     <p className="hidden font-medium md:block">Creddit</p>
                 </ Link>
                 {session?.user && <NavDropdown />}
+
+                
             </div>
+
+            <SearchBar />
 
             <div className="container flex justify-end items-center ">
                 {session?.user && <Button customClass="m-1 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}

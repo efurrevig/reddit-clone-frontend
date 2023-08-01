@@ -285,6 +285,23 @@ export const Icons = {
             <path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
         </svg>
     ),
+    info: (props: LucideProps) => (
+        <svg xmlns="http://www.w3.org/2000/svg" 
+            width={props.width || "24"} 
+            height={props.height || "24"} 
+            viewBox="0 0 24 24" 
+            fill="none" 
+            stroke="currentColor" 
+            strokeWidth="2" 
+            strokeLinecap="round" 
+            strokeLinejoin="round" 
+            className="lucide lucide-info"
+        >
+            <circle cx="12" cy="12" r="10"/>
+            <path d="M12 16v-4"/>
+            <path d="M12 8h.01"/>
+        </svg>
+    ),
 }
 
 

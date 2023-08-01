@@ -29,6 +29,7 @@ const SearchBar = () => {
     }, [query])
 
 
+
     return (
         <div className="relative flex items-center h-full w-full">
             <input 

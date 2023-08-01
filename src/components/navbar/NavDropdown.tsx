@@ -5,13 +5,15 @@ import { Icons } from '@/components/Icons'
 import { useEffect, useState, useRef } from 'react'
 // import { usePathname } from 'next/navigation'
 import communityService from '@/services/communities'
+import CreateCommunityModal from '../CreateCommunityModal'
 import { Community } from '@/types'
 
 const NavDropdown = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
+    const [showCreateCommunityModal, setShowCreateCommunityModal] = useState<boolean>(false)
     const [communities, setCommunities] = useState<Community[]>([])
     const initialDropdownItems = [
-        {name: 'Create Community', icon: <Icons.plus />, onClick: () => console.log('create community')},
+        {name: 'Create Community', icon: <Icons.plus />, onClick: () => setShowCreateCommunityModal(true)},
     ]
     
     useEffect(() => {
@@ -48,6 +50,9 @@ const NavDropdown = () => {
             className={`relative w-64 h-12 text-sm flex flex-col border ${showDropdown === true ? 'border-slate-500' : 'border-transparent'} hover:border-slate-500 rounded`}
             ref={dropdownRef}
         >
+            {showCreateCommunityModal &&
+                <CreateCommunityModal closeModal={() => setShowCreateCommunityModal(false)} />
+            }
             <Button clearDefault={true} onClick={handleDropdownClick} customClass='min-h-full px-2 items-center flex flex-row justify-between'>
                 <div>NavDropdown</div>
                 <Icons.chevronDown />

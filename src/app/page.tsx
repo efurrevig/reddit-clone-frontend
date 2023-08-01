@@ -4,6 +4,7 @@ import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
 import PostPreview  from '@/components/PostPreview'
 import CreatePostHeader from '@/components/CreatePostHeader'
 import { Post } from '@/types'
+
 async function getPosts(token: string | undefined) {
     const res = await fetch(`${process.env.BACKEND_URL}/home/posts/hot`,
         {

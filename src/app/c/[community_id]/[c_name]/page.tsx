@@ -3,7 +3,7 @@ import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
 import PostPreview  from '@/components/PostPreview'
 import CommunitySortBar from '@/components/CommunitySortBar'
 import CreatePostHeader from '@/components/CreatePostHeader'
-import CommunitySideBar from '@/components/CommunitySideBar'
+import CommunitySideBar from '@/components/CommunitySideBar/CommunitySideBar'
 import { Post, Community } from '@/types'
 
 async function getCommunityPosts(id: number, sorted_by: string, token: string | undefined) {

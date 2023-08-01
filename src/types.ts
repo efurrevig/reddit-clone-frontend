@@ -9,7 +9,9 @@ export interface Community {
     name: string,
     //logo: ???,
     //banner: ???,
-    //description: string
+    description: string
+    created_at: string,
+    updated_at: string,
 }
 
 export interface Post {

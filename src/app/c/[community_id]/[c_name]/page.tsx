@@ -3,6 +3,7 @@ import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
 import PostPreview  from '@/components/PostPreview'
 import CommunitySortBar from '@/components/CommunitySortBar'
 import CreatePostHeader from '@/components/CreatePostHeader'
+import CommunitySideBar from '@/components/CommunitySideBar'
 import { Post, Community } from '@/types'
 
 async function getCommunityPosts(id: number, sorted_by: string, token: string | undefined) {
@@ -42,16 +43,21 @@ export default async function Page({
     const sorted_by = searchParams.sort === undefined ? 'hot' : searchParams.sort
     const posts = await getCommunityPosts(params.community_id, sorted_by, session?.user.accessToken)
     const community = await getCommunity(params.community_id)
+    console.log(community)
+    console.log(new Date(community.created_at).toDateString())
 
     return (
-        <div className='my-2'>
-            <CreatePostHeader />
-            <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
-            {posts.map((post) => {
-                return (
-                    <PostPreview key={post.id} post={post}  />
-                )
-            })}
-        </div>
+        <main className='flex gap-6'>
+            <div className='my-2 w-144'>
+                <CreatePostHeader />
+                <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
+                {posts.map((post) => {
+                    return (
+                        <PostPreview key={post.id} post={post}  />
+                    )
+                })}
+            </div>
+            <CommunitySideBar community={community} />
+        </main>
     )
 }

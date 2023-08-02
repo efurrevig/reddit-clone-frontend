@@ -26,7 +26,7 @@ export default async function Home() {
 
     return (
         <main>
-            <div className='my-2'>
+            <div className='my-2 w-144'>
               <CreatePostHeader />
               {posts.map((post) => {
                   return (

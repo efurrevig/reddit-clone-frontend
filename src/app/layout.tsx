@@ -22,9 +22,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           <div className='flex flex-row gap-2 justify-center w-full my-3'>
-            <div className='w-144'>
               {children}
-            </div>
           </div>
         </Providers>
       </body>

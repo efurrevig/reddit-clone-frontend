@@ -6,13 +6,13 @@ import commentService from "@/services/comments"
 import { useSession } from "next-auth/react"
 
 
-
+ 
 type CommentFormProps = {
     parent_id: number
     parent_type: "Comment" | "Post"
     setNewUserComments: React.Dispatch<React.SetStateAction<Comment[]>>
     newUserComments: Comment[]
-    setShowCommentForm: React.Dispatch<React.SetStateAction<boolean>>
+    setShowCommentForm?: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CommentForm = ( props: CommentFormProps ) => {

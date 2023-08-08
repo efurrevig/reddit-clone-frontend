@@ -28,7 +28,6 @@ export default async function Page({
     const data = await getPost(params.post_id, params.community_id, session?.user.accessToken)
     const post = data.post as Post
     const comments = pack_comments(JSON.parse(data.comments) as Comment[])
-
     return (
         <div className="bg-gray-900 rounded flex flex-col gap-2 w-144">
             <PostDisplay post={post} c_name={params.c_name} />

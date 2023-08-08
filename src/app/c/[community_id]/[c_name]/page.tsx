@@ -38,12 +38,10 @@ export default async function Page({
         searchParams: { sort: 'hot' | 'new' | 'top' | undefined} 
 })  {
     
-    console.log(searchParams)
     const session = await getServerSession(authOptions)
     const sorted_by = searchParams.sort === undefined ? 'hot' : searchParams.sort
     const posts = await getCommunityPosts(params.community_id, sorted_by, session?.user.accessToken)
     const community = await getCommunity(params.community_id)
-    console.log(community)
     console.log(new Date(community.created_at).toDateString())
 
     return (

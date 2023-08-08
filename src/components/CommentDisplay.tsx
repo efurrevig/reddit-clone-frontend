@@ -9,6 +9,7 @@ import TimeDisplay from "./TimeDisplay";
 import CommentForm from "./CommentForm";
 import ConfirmationModal from "./ConfirmationModal";
 import EditCommentForm from "./EditCommentForm";
+import DropdownBlur from "./DropdownBlur";
 
 const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [votes, setVotes] = useState<number>(comment.vote_count)
@@ -76,18 +77,6 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
         setShowDropdown(false)
     }
 
-    const handleClickOutsideDropdown = (e: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-            setShowDropdown(false)
-        }
-    }
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutsideDropdown)
-        return () => {
-            document.removeEventListener('mousedown', handleClickOutsideDropdown)
-        }
-    }, [])
 
     return (
         <div className="ml-4 flex flex-col gap-2 pt-2">
@@ -154,27 +143,30 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                                     <Icons.elipsis />
                                 </Button>
                                 {showDropdown ? (
-                                    <div 
-                                        className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
-                                        ref={dropdownRef}
-                                    >
-                                        <Button
-                                            clearDefault={true}
-                                            onClick={handleEditCommentClick}
-                                            customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
+
+                                    <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
+                                        <div 
+                                            className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
+                                            ref={dropdownRef}
                                         >
-                                            <Icons.edit />
-                                            Edit
-                                        </Button>
-                                        <Button
-                                            clearDefault={true}
-                                            onClick={handleDropdownDeleteClick}
-                                            customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
-                                        >
-                                            <Icons.trash />
-                                            Delete
-                                        </Button>
-                                    </div>
+                                            <Button
+                                                clearDefault={true}
+                                                onClick={handleEditCommentClick}
+                                                customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
+                                            >
+                                                <Icons.edit />
+                                                Edit
+                                            </Button>
+                                            <Button
+                                                clearDefault={true}
+                                                onClick={handleDropdownDeleteClick}
+                                                customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
+                                            >
+                                                <Icons.trash />
+                                                Delete
+                                            </Button>
+                                        </div>
+                                    </DropdownBlur>
                                 ) : null}
                             </div>
 

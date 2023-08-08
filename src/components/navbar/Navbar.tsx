@@ -54,7 +54,9 @@ const Navbar = () => {
                 
             </div>
 
-            <SearchBar />
+            <div className='flex items-center w-full'>
+              <SearchBar />
+            </div>
 
             <div className="container flex justify-end items-center ">
                 {session?.user && <Button customClass="m-1 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}

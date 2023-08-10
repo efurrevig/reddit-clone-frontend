@@ -1,12 +1,13 @@
 import Link from "next/link"
 import { Icons } from "@/components/Icons"
 const Feeds = () => {
+    const linkClass = 'flex flex-row gap-2 hover:bg-gray-700 items-center px-4 py-1'
     return (
-        <div className='flex flex-col gap-2 px-4 py-1'>
-            <span className='text-sm text-gray-400 my-2'>Feeds</span>
+        <div className='flex flex-col gap-2'>
+            <span className='text-sm text-gray-400 px-4 py-1'>Feeds</span>
             <Link
                 href='/'
-                className='flex flex-row gap-2 hover:bg-gray-700 items-center'
+                className={linkClass}
                 prefetch={false}
             >
                 <Icons.home  />
@@ -14,7 +15,7 @@ const Feeds = () => {
             </Link>
             <Link
                 href='/'
-                className='flex flex-row gap-2 hover:bg-gray-700 items-center'
+                className={linkClass}
                 prefetch={false}
             >
                 <Icons.hot  />
@@ -22,7 +23,7 @@ const Feeds = () => {
             </Link>
             <Link
                 href='/'
-                className='flex flex-row gap-2 hover:bg-gray-700 items-center'
+                className={linkClass}
                 prefetch={false}
             >
                 <Icons.new  />

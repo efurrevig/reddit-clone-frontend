@@ -30,6 +30,7 @@ export interface Post {
     is_deleted: boolean,
     created_at: string,
     updated_at: string,
+    subscription_status: string,
 }
 
 export interface Comment {

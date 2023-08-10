@@ -13,7 +13,6 @@ const PostPreview = ({post}: {post: Post}) => {
     const [votes, setVotes] = useState(post.vote_count)
     const [upvoted, setUpvoted] = useState(post.vote_value === 1)
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)
-    
     const { data: session } = useSession()
     const handleUpvoteClick = async () => {
         const res = await postService.upVote(post.id, session?.user?.accessToken)

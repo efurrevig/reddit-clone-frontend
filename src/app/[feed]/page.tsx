@@ -24,7 +24,6 @@ export default async function Page({
 }) {
     const session = await getServerSession(authOptions)
     const posts = await getFeedPosts(params.feed, 'hot', session?.user.accessToken)
-
     return (
         <main className='flex gap-6'>
             <div className='my-2 w-144'>

@@ -35,7 +35,7 @@ const SearchBar = () => {
 
     return (
         <DropdownBlur setShowDropdown={setShowSearchResults} targetRef={dropdownRef}>
-            <div className="relative flex items-center basis-full" ref={dropdownRef}>
+            <div className="relative flex items-center h-full w-full" ref={dropdownRef}>
                 <input 
                     className="bg-gray-700 py-2 px-3 rounded-2xl w-full outline-none focus:ring-1 focus:ring-white focus:ring-opacity-50 text-sm text-gray-100"
                     type="text" 

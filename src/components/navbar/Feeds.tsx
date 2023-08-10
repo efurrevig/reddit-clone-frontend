@@ -6,7 +6,7 @@ const Feeds = () => {
         <div className='flex flex-col gap-2'>
             <span className='text-sm text-gray-400 px-4 py-1'>Feeds</span>
             <Link
-                href='/'
+                href='/home'
                 className={linkClass}
                 prefetch={false}
             >
@@ -14,7 +14,7 @@ const Feeds = () => {
                 <div>Home</div>
             </Link>
             <Link
-                href='/'
+                href='/popular'
                 className={linkClass}
                 prefetch={false}
             >
@@ -22,7 +22,7 @@ const Feeds = () => {
                 <div>Popular</div>
             </Link>
             <Link
-                href='/'
+                href='/all'
                 className={linkClass}
                 prefetch={false}
             >

@@ -6,7 +6,7 @@ import CreatePostHeader from '@/components/CreatePostHeader'
 import { Post } from '@/types'
 
 async function getPosts(token: string | undefined) {
-    const res = await fetch(`${process.env.BACKEND_URL}/home/posts/hot`,
+    const res = await fetch(`${process.env.BACKEND_URL}/posts/home/hot`,
         {
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }

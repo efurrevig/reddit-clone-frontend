@@ -23,7 +23,7 @@ const DropdownBlur = (
     }, [])
 
     return (
-        <div className='w-full h-full'>
+        <div className='w-full h-full flex items-center'>
             {props.children}
         </div>
     )

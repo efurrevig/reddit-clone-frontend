@@ -67,3 +67,6 @@ export interface Community {
     name: string,
     description: string,
 }
+
+export type Feed = 'Home' | 'Popular' | 'All'
+

@@ -8,6 +8,7 @@ import communityService from '@/services/communities'
 import CreateCommunityModal from '../CreateCommunityModal'
 import { Community } from '@/types'
 import DropdownBlur from '../DropdownBlur'
+import Feeds from './Feeds'
 
 const NavDropdown = () => {
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
@@ -79,6 +80,7 @@ const NavDropdown = () => {
 
 
                         })}
+                        <Feeds />
                     </div>
                 }
             </div>

@@ -70,4 +70,5 @@ export interface Community {
 }
 
 export type Feed = 'Home' | 'Popular' | 'All'
+export type Sort = 'hot' | 'new' | 'top'
 

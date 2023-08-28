@@ -64,7 +64,6 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown)
-        console.log(showDropdown)
     }
 
     const handleDropdownDeleteClick = () => {

@@ -5,7 +5,11 @@ import { useSession } from 'next-auth/react'
 import postService from '@/services/posts'
 import Button from '../Button'
 
-const PostForm = () => {
+const PostForm = (
+    props: {
+        communityId?: number,
+    }
+) => {
     const [form, setForm] = useState({
         title: '',
         body: '',
@@ -20,7 +24,7 @@ const PostForm = () => {
             ...form
         }
         try {
-            await postService.createPost(post, session?.user?.accessToken)
+            await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
         } catch (error) {
             console.log(error)
         }
@@ -48,7 +52,10 @@ const PostForm = () => {
                 >
                 </textarea>
                 <div className='flex flex-row justify-end py-1'>
-                    <Button clearDefault={true} customClass='bg-cyan-900 text-white font-bold py-1 px-4 rounded-3xl flex justify-center items-center gap-2'>
+                    <Button 
+                        clearDefault={true} 
+                        customClass='bg-cyan-900 text-white font-bold py-1 px-4 rounded-3xl flex justify-center items-center gap-2 disabled:cursor-not-allowed'
+                        disabled={props.communityId ? false : true}>
                         Post
                     </Button>
                 </div>

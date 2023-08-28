@@ -24,8 +24,8 @@ const downVote = async(id: number, token: string | undefined) => {
     return true
 }
 
-const createPost = async (newPost: PostToCreate, token: string | undefined) => {
-    const res = await fetch('/api/backend/communities/1/posts', {
+const createPost = async (newPost: PostToCreate, token: string | undefined, community_id: number) => {
+    const res = await fetch(`/api/backend/communities/${community_id}/posts`, {
         method: 'POST',
         body: JSON.stringify({ post: newPost }),
         headers: {

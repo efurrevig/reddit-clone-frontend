@@ -1,6 +1,5 @@
 import { getServerSession } from 'next-auth'
 import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
-import PostPreview  from '@/components/PostPreview'
 import CommunitySortBar from '@/components/CommunitySortBar'
 import CreatePostHeader from '@/components/CreatePostHeader'
 import CommunitySideBar from '@/components/CommunitySideBar/CommunitySideBar'

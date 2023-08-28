@@ -5,7 +5,11 @@ import Button from '../Button'
 import PostForm from './PostForm'
 import UrlForm from './UrlForm'
 
-const CreatePost = () => {
+const CreatePost = (
+    props: {
+        communityId?: number,
+    }
+) => {
     const [postType, setPostType] = useState<'message' | 'url'>('message')
 
     return (

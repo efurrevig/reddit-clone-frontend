@@ -5,7 +5,7 @@ import PostPreview from './PostPreview'
 import Spinner from './Spinner'
 import { Post, Sort } from '@/types'
 import { useSession } from 'next-auth/react'
-import { FetchCommunityPosts, FetchFeedPosts, FetchPosts, Feed } from '@/types'
+import { FetchPosts, Feed } from '@/types'
 const PostList = ( props : {
     posts: Post[],
     fetchPosts: FetchPosts,
@@ -16,6 +16,7 @@ const PostList = ( props : {
     const { data: session } = useSession()
     const [posts, setPosts] = useState<Post[]>([])
     const [page, setPage] = useState<number>(2)
+    const [sort, setSort] = useState<Sort>(props.sortedBy)
     const [isLoading , setIsLoading] = useState<boolean>(false)
     const [isEnd, setIsEnd] = useState<boolean>(false)
 
@@ -23,21 +24,21 @@ const PostList = ( props : {
         setPosts(props.posts)
         setPage(2)
         setIsEnd(false)
-    }, [props.posts])
+        setSort(props.sortedBy)
+    }, [props.posts, props.sortedBy])
 
-
+    // initial page load shows first 10 posts, then fetches 10 more, but the first 10 is gone? 
 
     const fetchMorePosts = async () => {
         setIsLoading(true)
         let newPosts = [] as Post[]
         try {
             if (props.fetchPosts.state === 'feed') {
-                newPosts = await props.fetchPosts.fetchPosts(props.feed as Feed, props.sortedBy, session?.user?.accessToken, page)
+                newPosts = await props.fetchPosts.fetchPosts(props.feed as Feed, sort, session?.user?.accessToken, page)
             } else if (props.fetchPosts.state === 'community') {   
-                newPosts = await props.fetchPosts.fetchPosts(props.cid as number, props.sortedBy, session?.user?.accessToken, page)
-            } else {
-                newPosts = [] as Post[]
+                newPosts = await props.fetchPosts.fetchPosts(props.cid as number, sort, session?.user?.accessToken, page)
             }
+
             if (newPosts.length === 0) {
                 setIsEnd(true)
             } else {
@@ -61,7 +62,7 @@ const PostList = ( props : {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLoading, isEnd])
+    }, [isLoading, isEnd, sort, page, posts])
 
 
     return (

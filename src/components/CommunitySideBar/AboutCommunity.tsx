@@ -19,7 +19,7 @@ const AboutCommunity = ({
             </div>
             <div className='flex'>
                 <Link
-                    href={'/submit'}
+                    href={`/c/${community.id}/${community.name}/submit/`}
                     className='flex items-center justify-center w-full py-1 bg-cyan-700 rounded-2xl'  
                 >
                     <span className='text-white text-sm'>Create Post</span>

@@ -15,19 +15,23 @@ const SelectCommunity = (
     const [otherCommunities, setOtherCommunities] = useState<Pick<Community, "name" | "id">[]>([])
     const dropdownRef = useRef<HTMLDivElement>(null)
    
-    useEffect(() => {
-        const getCommunities = async () => {
-            const res = await fetch('/api/communities')
-            const communities = await res.json()
-            setOtherCommunities(communities)
-        }
+    // useEffect(() => {
+    //     const getCommunities = async () => {
+    //         const res = await fetch('/api/communities/search/query')
+    //         const communities = await res.json()
+    //         setOtherCommunities(communities)
+    //     }
         
-        if (query.length > 0) {
-            getCommunities()
-        } else {
-            setOtherCommunities([])
-        }
-    }, [query])
+    //     if (query.length > 0) {
+    //         getCommunities()
+    //     } else {
+    //         setOtherCommunities([])
+    //     }
+    // }, [query])
+
+    // useEffect(() => {
+
+    // }, [yourCommunities, otherCommunities])
 
     return (
         <DropdownBlur
@@ -48,7 +52,21 @@ const SelectCommunity = (
                 />
                 {showDropdown && (
                     <div className={`absolute max-h-96 w-72 -left-px bg-gray-900 overflow-y-scroll overflow-x-hidden top-full gap-1 mb-2 flex flex-col border border-t rounded-t-none border-slate-800`}>
-                        <p className='p-4 text-gray-400 text-sm text-center'>No results found</p>
+                        {yourCommunities.length + otherCommunities.length === 0 ? (
+                            <p className='p-4 text-gray-400 text-sm text-center'>No results found</p>
+                        ) : (
+                            <div>
+                                {yourCommunities.map((community) => {
+                                    return (
+                                        <div key={community.id} className='flex flex-row items-center gap-2 py-1 px-4 hover:bg-gray-700 items-center'>
+                                            <div className='w-4 h-4 bg-gray-700 rounded-full'></div>
+                                            <div>{community.name}</div>
+                                        </div>
+                                    )}
+                                )}
+                            </div>
+                        )}
+                        
                     </div>
                 )}
             </div>

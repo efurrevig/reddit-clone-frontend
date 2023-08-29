@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import { Icons } from '../Icons'
+import { Community } from '@/types'
 import Button from '../Button'
 import PostForm from './PostForm'
 import UrlForm from './UrlForm'
@@ -9,6 +10,8 @@ import SelectCommunity from './SelectCommunity'
 const CreatePost = (
     props: {
         communityId?: number,
+        communityName?: string,
+        subscribedCommunities?: Pick<Community, "name" | "id">[],
     }
 ) => {
     const [postType, setPostType] = useState<'message' | 'url'>('message')
@@ -20,7 +23,7 @@ const CreatePost = (
                     <div className='text-xl'>Create a post</div>
                 </div>
             </div>
-            <SelectCommunity />
+            <SelectCommunity  communityName={props.communityName} subscribedCommunities={props.subscribedCommunities} />
             <div className='flex flex-col rounded w-full bg-gray-900'>
                 <div className='flex flex-row w-full border-b border-gray-700'>
                     <Button 

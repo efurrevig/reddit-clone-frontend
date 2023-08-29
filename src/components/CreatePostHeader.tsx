@@ -17,18 +17,21 @@ const createPostHeader = (
             </div>
             <Link
                 href={`${url}`}
-                className='flex-grow bg-gray-700 rounded mx-2 rounded' 
+                className='flex-grow bg-gray-700 rounded mx-2 rounded'
+                prefetch={false}
             >
                 <input className='h-full w-full bg-gray-700 px-2 rounded rounded' placeholder='Create Post' />
             </Link>
             <div className='flex items-center gap-1'>
                 <Link
                     href={`${url}`}
+                    prefetch={false}
                 >
                     <Icons.link />
                 </Link>
                 <Link
                     href={`${url}`}
+                    prefetch={false}
                 >
                     <Icons.image />
                 </Link>

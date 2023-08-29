@@ -20,7 +20,8 @@ const AboutCommunity = ({
             <div className='flex'>
                 <Link
                     href={`/c/${community.id}/${community.name}/submit/`}
-                    className='flex items-center justify-center w-full py-1 bg-cyan-700 rounded-2xl'  
+                    className='flex items-center justify-center w-full py-1 bg-cyan-700 rounded-2xl'
+                    prefetch={false} 
                 >
                     <span className='text-white text-sm'>Create Post</span>
                 </Link> 

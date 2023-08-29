@@ -47,7 +47,7 @@ export default async function Page({
     return (
         <main className='flex gap-6'>
             <div className='my-2 w-144'>
-                <CreatePostHeader />
+                <CreatePostHeader communityName={community.name} communityId={community.id}/>
                 <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
                 <PostList posts={posts} fetchPosts={getCommunityPosts} sortedBy={sorted_by} cid={params.community_id}  />
             </div>

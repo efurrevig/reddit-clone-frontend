@@ -11,7 +11,7 @@ const CreatePost = (
     props: {
         communityId?: number,
         communityName?: string,
-        subscribedCommunities?: Pick<Community, "name" | "id">[],
+        subscribedCommunities: Pick<Community, "name" | "id">[],
     }
 ) => {
     const [postType, setPostType] = useState<'message' | 'url'>('message')
@@ -45,7 +45,7 @@ const CreatePost = (
 
                 </div>
                 <div className={postType !== 'message' ? 'hidden' : ''}>
-                    <PostForm />
+                    <PostForm communityId={props.communityId ? props.communityId : undefined} />
                 </div>
                 <div className={postType !== 'url' ? 'hidden' : ''}>
                     <UrlForm />

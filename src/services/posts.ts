@@ -1,4 +1,5 @@
 import { PostToCreate } from "@/types"
+import { Post } from "@/types"
 
 const upVote = async (id: number, token: string | undefined) => {
     const res = await fetch(`/api/backend/posts/${id}/upvote`, {
@@ -36,9 +37,10 @@ const createPost = async (newPost: PostToCreate, token: string | undefined, comm
     })
 
     if (!res.ok) {
-        return false
+        return await res.json()
     }
-    return true
+    const data = await res.json()
+    return data as Post
 } 
 
 const postService = { upVote, downVote, createPost }

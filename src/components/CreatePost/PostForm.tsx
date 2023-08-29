@@ -4,6 +4,7 @@ import { Icons } from '../Icons'
 import { useSession } from 'next-auth/react'
 import postService from '@/services/posts'
 import Button from '../Button'
+import { redirect } from 'next/navigation'
 
 const PostForm = (
     props: {
@@ -16,17 +17,22 @@ const PostForm = (
         post_type: 'message',
         url: null
     })
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     const { data: session } = useSession()
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
+        setIsLoading(true)
         const post = {
             ...form
         }
         try {
-            await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
+            const res = await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
+            redirect(`c/${res.community_id}/${res.community_name}/comments/${res.id}/`)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 

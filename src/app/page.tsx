@@ -1,12 +1,13 @@
 import Image from 'next/image'
 import { getServerSession } from 'next-auth'
 import { authOptions }  from "@/app/api/auth/[...nextauth]/route"
-import PostPreview  from '@/components/PostPreview'
+import PostList from '@/components/PostList'
 import CreatePostHeader from '@/components/CreatePostHeader'
-import { Post } from '@/types'
+import { Post, Feed, FetchFeedPosts } from '@/types'
 
-async function getPosts(token: string | undefined) {
-    const res = await fetch(`${process.env.BACKEND_URL}/posts/home/hot`,
+async function getPosts(feed: Feed, sorted_by: string, token: string | undefined, page: number) {
+    'use server'
+    const res = await fetch(`${process.env.BACKEND_URL}/posts/${feed}/${sorted_by}/${page}`,
         {
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }
@@ -14,7 +15,7 @@ async function getPosts(token: string | undefined) {
     )
 
     if (!res.ok) {
-        return []
+        return [] as Post[]
     }
     const data = await res.json()
     return data.data as Post[]
@@ -22,17 +23,13 @@ async function getPosts(token: string | undefined) {
 
 export default async function Home() {
     const session = await getServerSession(authOptions)
-    const posts = await getPosts(session?.user.accessToken)
-
+    const posts = await getPosts('Home', 'hot', session?.user.accessToken, 1)
+    const fetchPosts: FetchFeedPosts = { state: 'feed', fetchPosts: getPosts }
     return (
         <main>
             <div className='my-2 w-144'>
               <CreatePostHeader />
-              {posts.map((post) => {
-                  return (
-                      <PostPreview key={post.id} post={post}  />
-                  )
-              })}
+              <PostList posts={posts} fetchPosts={fetchPosts} sortedBy={'hot'} feed={'Home'} />
             </div>
         </main>
     )

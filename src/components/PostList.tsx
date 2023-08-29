@@ -5,12 +5,13 @@ import PostPreview from './PostPreview'
 import Spinner from './Spinner'
 import { Post, Sort } from '@/types'
 import { useSession } from 'next-auth/react'
-
+import { FetchCommunityPosts, FetchFeedPosts, FetchPosts, Feed } from '@/types'
 const PostList = ( props : {
     posts: Post[],
-    fetchPosts: (id: number, sorted_by: string, token: string | undefined, page: number) => Promise<Post[]>,
+    fetchPosts: FetchPosts,
     sortedBy: Sort,
-    cid: number,
+    cid?: number,
+    feed?: Feed
 }) => {
     const { data: session } = useSession()
     const [posts, setPosts] = useState<Post[]>([])
@@ -24,10 +25,19 @@ const PostList = ( props : {
         setIsEnd(false)
     }, [props.posts])
 
+
+
     const fetchMorePosts = async () => {
         setIsLoading(true)
+        let newPosts = [] as Post[]
         try {
-            const newPosts = await props.fetchPosts(props.cid, props.sortedBy, session?.user?.accessToken, page)
+            if (props.fetchPosts.state === 'feed') {
+                newPosts = await props.fetchPosts.fetchPosts(props.feed as Feed, props.sortedBy, session?.user?.accessToken, page)
+            } else if (props.fetchPosts.state === 'community') {   
+                newPosts = await props.fetchPosts.fetchPosts(props.cid as number, props.sortedBy, session?.user?.accessToken, page)
+            } else {
+                newPosts = [] as Post[]
+            }
             if (newPosts.length === 0) {
                 setIsEnd(true)
             } else {

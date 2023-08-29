@@ -69,6 +69,28 @@ export interface Community {
     description: string,
 }
 
+export type FetchCommunityPosts = {
+    state: "community"
+    fetchPosts: (
+        community_id: number,
+        sort: Sort,
+        token: string | undefined,
+        page: number,
+    ) => Promise<Post[]>
+}
+
+export type FetchFeedPosts = {
+    state: "feed"
+    fetchPosts: (
+        feed: Feed,
+        sort: Sort,
+        token: string | undefined,
+        page: number,
+    ) => Promise<Post[]>
+}
+
+export type FetchPosts = FetchCommunityPosts | FetchFeedPosts
+
 export type Feed = 'Home' | 'Popular' | 'All'
 export type Sort = 'hot' | 'new' | 'top'
 

@@ -14,7 +14,7 @@ const getAll = async () => {
 }
 
 const fetchCommunityPosts = async (id: number, sorted_by: string, token: string | undefined, page: number) => {
-    const res = await fetch(`api/backend/communities/${id}/posts/${sorted_by}/${page}`,
+    const res = await fetch(`/api/backend/communities/${id}/posts/${sorted_by}/${page}`,
         {
             cache: 'no-cache',
             headers: { 'Authorization': `${token ? token : ''}` }

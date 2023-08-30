@@ -1,4 +1,5 @@
 import { Community } from '../types'
+import { Post } from '../types'
 
 const getAll = async () => {
     const res = await fetch('/api/backend/communities', {
@@ -10,6 +11,21 @@ const getAll = async () => {
         throw new Error(data.status.message)
     }
     return data
+}
+
+const fetchCommunityPosts = async (id: number, sorted_by: string, token: string | undefined, page: number) => {
+    const res = await fetch(`api/backend/communities/${id}/posts/${sorted_by}/${page}`,
+        {
+            cache: 'no-cache',
+            headers: { 'Authorization': `${token ? token : ''}` }
+        }
+    )
+
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
+    const data = await res.json()
+    return data.data as Post[]
 }
 
 const search = async (query: string) => {
@@ -51,6 +67,6 @@ const create = async (name: string, token: string | undefined) => {
 
 }
 
-const communityService = { getAll, search, create }
+const communityService = { getAll, search, create, fetchCommunityPosts }
 
 export default communityService

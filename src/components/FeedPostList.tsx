@@ -5,20 +5,20 @@ import PostPreview from './PostPreview'
 import Spinner from './Spinner'
 import { Post, Sort } from '@/types'
 import { useSession } from 'next-auth/react'
-import { FetchCommunityPosts } from '@/types'
-import communityService from '@/services/communities'
+import { Feed } from '@/types'
+import feedService from '@/services/feeds'
 
-const PostList = ( props : {
+const FeedPostList = ( props : {
     posts: Post[],
     sortedBy: Sort,
-    cid: number,
+    feed: Feed
 }) => {
-    const { data: session } = useSession()
     const [posts, setPosts] = useState<Post[]>([])
     const [page, setPage] = useState<number>(2)
     const [sort, setSort] = useState<Sort>(props.sortedBy)
     const [isLoading , setIsLoading] = useState<boolean>(false)
     const [isEnd, setIsEnd] = useState<boolean>(false)
+    const { data: session } = useSession()
 
     useEffect(() => {
         setPosts(props.posts)
@@ -30,11 +30,8 @@ const PostList = ( props : {
 
     const fetchMorePosts = async () => {
         setIsLoading(true)
-        const token = session?.user?.accessToken
         try {
- 
-            const newPosts = await communityService.fetchCommunityPosts(props.cid, sort, token, page)
-            
+            const newPosts = await feedService.fetchFeedPosts(props.feed, sort, session?.user.accessToken, page)
 
             if (newPosts.length === 0) {
                 setIsEnd(true)
@@ -59,7 +56,7 @@ const PostList = ( props : {
     useEffect(() => {
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLoading, isEnd, sort, page, posts, session])
+    }, [isLoading, isEnd, sort, page, posts, session, props.feed])
 
 
     return (
@@ -75,4 +72,4 @@ const PostList = ( props : {
     )
 }
 
-export default PostList
+export default FeedPostList

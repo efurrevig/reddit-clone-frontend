@@ -44,14 +44,13 @@ export default async function Page({
     const sorted_by = searchParams.sort === undefined ? 'hot' : searchParams.sort
     const posts = await getCommunityPosts(params.community_id, sorted_by, session?.user.accessToken, 1)
     const community = await getCommunity(params.community_id)
-    const fetchPosts: FetchCommunityPosts = { state: 'community', fetchPosts: getCommunityPosts }
 
     return (
         <main className='flex gap-6'>
             <div className='my-2 w-144'>
                 <CreatePostHeader communityName={community.name} communityId={community.id}/>
                 <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
-                <PostList posts={posts} fetchPosts={fetchPosts} sortedBy={sorted_by} cid={params.community_id}  />
+                <PostList posts={posts} sortedBy={sorted_by} cid={params.community_id}  />
             </div>
             <CommunitySideBar community={community} />
         </main>

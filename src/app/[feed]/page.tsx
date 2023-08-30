@@ -1,7 +1,7 @@
 import { Feed, Post } from "@/types";
 import { authOptions } from "../api/auth/[...nextauth]/route";
 import { getServerSession } from "next-auth";
-import PostPreview from "@/components/PostPreview";
+import FeedPostList from "@/components/FeedPostList";
 import CreatePostHeader from "@/components/CreatePostHeader";
 
 async function getFeedPosts(feed: Feed, sorted_by: string, token: string | undefined, page: number) {
@@ -23,16 +23,13 @@ export default async function Page({
         params : { feed: Feed }
 }) {
     const session = await getServerSession(authOptions)
-    const posts = await getFeedPosts(params.feed, 'hot', session?.user.accessToken, 1)
+    const sortedBy = 'hot'
+    const posts = await getFeedPosts(params.feed, 'hot', session?.user?.accessToken, 1)
     return (
         <main className='flex gap-6'>
             <div className='my-2 w-144'>
                 <CreatePostHeader />
-                {posts.map((post) => {
-                    return (
-                        <PostPreview key={post.id} post={post}  />
-                    )
-                })}
+                <FeedPostList posts={posts} sortedBy={sortedBy} feed={params.feed} />
             </div>
         </main>
     )

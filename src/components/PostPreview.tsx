@@ -14,6 +14,7 @@ const PostPreview = ({post}: {post: Post}) => {
     const [upvoted, setUpvoted] = useState(post.vote_value === 1)
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)
     const { data: session } = useSession()
+
     const handleUpvoteClick = async () => {
         const res = await postService.upVote(post.id, session?.user?.accessToken)
         if (res) {
@@ -51,11 +52,6 @@ const PostPreview = ({post}: {post: Post}) => {
     }
 
     return (
-        <Link
-            href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
-            prefetch={false}
-            className='cursor-pointer'
-        >
             <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill border border-gray-900 hover:border-gray-600'>
                 <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
                     <Button clearDefault={true} onClick={handleUpvoteClick}>
@@ -66,7 +62,8 @@ const PostPreview = ({post}: {post: Post}) => {
                         <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
                     </Button>
                 </div>
-                <div className='relative pt-2 bg-gray-900 rounded-r'>
+                
+                <div className='relative pt-2 bg-gray-900 rounded-r hover:cursor-pointer'>
                     <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
                         <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
                             <Link
@@ -82,15 +79,20 @@ const PostPreview = ({post}: {post: Post}) => {
                             <TimeDisplay created_at={post.created_at}/>
                         </div>
                     </div>
-                    <div className='mx-2 pr-2 inline-block text-lg break-words'>
-                    
-                        <h3>{post.title}</h3>    
-                    </div>
-                    <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
-                        <div className='post-fade'>
-                            <span className="whitespace-pre-line">{post.body}</span>
+                    <Link
+                        href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
+                        className='hover:cursor-pointer'
+                        prefetch={false}
+                    >
+                        <div className='mx-2 pr-2 inline-block text-lg break-words'>
+                            <h3>{post.title}</h3>    
                         </div>
-                    </div>
+                        <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
+                            <div className='post-fade'>
+                                <span className="whitespace-pre-line">{post.body}</span>
+                            </div>
+                        </div>
+                    </Link>
                     <div className='flex'>
                         <Link
                             href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
@@ -102,7 +104,6 @@ const PostPreview = ({post}: {post: Post}) => {
                     </div>
                 </div>
             </div>
-        </Link>
     )
 }
 

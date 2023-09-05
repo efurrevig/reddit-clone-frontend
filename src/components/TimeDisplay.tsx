@@ -32,7 +32,7 @@ const TimeDisplay = ( props: { created_at: string }) => {
   
     const formattedTime = getTimeDifference(props.created_at)
   
-    return <div>{formattedTime}</div>
+    return <div suppressHydrationWarning={true}>{formattedTime}</div>
   };
   
   export default TimeDisplay

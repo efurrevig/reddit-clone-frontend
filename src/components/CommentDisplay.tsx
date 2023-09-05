@@ -88,7 +88,7 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">
                 <Icons.tempUser /> {comment.author}
                 <span className='text-gray-400 font-thin'> • </span> 
-                <span className="text-gray-400"><TimeDisplay created_at={comment.created_at}/> </span>
+                <span className="text-gray-400"><TimeDisplay created_at={comment.created_at} /> </span>
             </div>
 
             <div className="border-l-2 border-gray-700 px-2">

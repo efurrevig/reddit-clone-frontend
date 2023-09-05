@@ -1,10 +1,11 @@
 'use client'
 import { useState } from 'react'
 import { Icons } from '../Icons'
+import { Post } from '@/types'
 import { useSession } from 'next-auth/react'
 import postService from '@/services/posts'
 import Button from '../Button'
-import { redirect } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 
 const PostForm = (
     props: {
@@ -19,16 +20,18 @@ const PostForm = (
     })
     const [isLoading, setIsLoading] = useState<boolean>(false)
     const { data: session } = useSession()
+    const router = useRouter()
 
     const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         setIsLoading(true)
+        
         const post = {
             ...form
         }
         try {
-            const res = await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
-            redirect(`c/${res.community_id}/${res.community_name}/comments/${res.id}/`)
+            const res: Post = await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
+            router.push(`comments/${res.id}/`)
         } catch (error) {
             console.log(error)
         } finally {
@@ -59,7 +62,8 @@ const PostForm = (
                 </textarea>
                 <div className='flex flex-row justify-end py-1'>
                     <Button 
-                        clearDefault={true} 
+                        clearDefault={true}
+                        isLoading={isLoading}
                         customClass='bg-cyan-900 text-white font-bold py-1 px-4 rounded-3xl flex justify-center items-center gap-2 disabled:cursor-not-allowed'
                         disabled={props.communityId ? false : true}>
                         Post

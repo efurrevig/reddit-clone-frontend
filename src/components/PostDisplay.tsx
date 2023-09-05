@@ -6,6 +6,7 @@ import { useSession } from 'next-auth/react'
 import { useState } from 'react'
 import postService from '@/services/posts'
 import TimeDisplay from './TimeDisplay'
+import Link from 'next/link'
 
 const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     const [votes, setVotes] = useState(post.vote_count)
@@ -62,7 +63,11 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
             <div className='relative pt-2 bg-gray-900 rounded-r'>
                 <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
                     <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
-                        <span className='text-white'>c/{c_name}</span>
+                        <Link href={`/c/${post.community_id}/${c_name}`}
+                            className='hover:underline cursor-pointer'
+                        >
+                            <span className='text-white'>c/{c_name}</span>
+                        </Link>
                         <span className='mx-1'>•</span>
                         <span className='mr-1'>Posted by</span>
                         <span className='hover:underline cursor-pointer mr-1'>u/{post.author}</span>

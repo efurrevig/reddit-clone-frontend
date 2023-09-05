@@ -51,53 +51,58 @@ const PostPreview = ({post}: {post: Post}) => {
     }
 
     return (
-        <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill'>
-            <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
-                <Button clearDefault={true} onClick={handleUpvoteClick}>
-                    <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
-                </Button>
-                <div>{votes}</div>
-                <Button clearDefault={true} onClick={handleDownvoteClick}>
-                    <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
-                </Button>
-            </div>
-            <div className='relative pt-2 bg-gray-900 rounded-r'>
-                <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
-                    <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
+        <Link
+            href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
+            prefetch={false}
+            className='cursor-pointer'
+        >
+            <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill border border-gray-900 hover:border-gray-600'>
+                <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
+                    <Button clearDefault={true} onClick={handleUpvoteClick}>
+                        <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
+                    </Button>
+                    <div>{votes}</div>
+                    <Button clearDefault={true} onClick={handleDownvoteClick}>
+                        <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
+                    </Button>
+                </div>
+                <div className='relative pt-2 bg-gray-900 rounded-r'>
+                    <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
+                        <div className='flex flex-auto items-center overflow-hidden text-gray-400'>
+                            <Link
+                                href={`/c/${post.community_id}/${post.community_name}`}
+                                className='hover:underline cursor-pointer'
+                                prefetch={false}
+                            >
+                                <span className='text-white'>c/{post.community_name}</span>
+                            </Link>
+                            <span className='mx-1'>•</span>
+                            <span className='mr-1'>Posted by</span>
+                            <span className='hover:underline cursor-pointer mr-1'>u/{post.author}</span>
+                            <TimeDisplay created_at={post.created_at}/>
+                        </div>
+                    </div>
+                    <div className='mx-2 pr-2 inline-block text-lg break-words'>
+                    
+                        <h3>{post.title}</h3>    
+                    </div>
+                    <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
+                        <div className='post-fade'>
+                            <span className="whitespace-pre-line">{post.body}</span>
+                        </div>
+                    </div>
+                    <div className='flex'>
                         <Link
-                            href={`/c/${post.community_id}/${post.community_name}`}
-                            className='hover:underline cursor-pointer'
+                            href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
+                            className='flex items-center p-1 gap-1 mx-2 mb-0.5 h-10 text-xs hover:bg-gray-800'
                             prefetch={false}
                         >
-                            <span className='text-white'>c/{post.community_name}</span>
+                            <Icons.comments /> {post.comment_count} Comments
                         </Link>
-                        <span className='mx-1'>•</span>
-                        <span className='mr-1'>Posted by</span>
-                        <span className='hover:underline cursor-pointer mr-1'>u/{post.author}</span>
-                        <TimeDisplay created_at={post.created_at}/>
                     </div>
-                </div>
-                <div className='mx-2 pr-2 inline-block text-lg break-words'>
-                    {/* <Link href='/'> */}
-                        <h3>{post.title}</h3>
-                    {/* </Link> */}
-                </div>
-                <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
-                    <div className='post-fade'>
-                        <span className="whitespace-pre-line">{post.body}</span>
-                    </div>
-                </div>
-                <div className='flex'>
-                    <Link
-                        href={`/c/${post.community_id}/${post.community_name}/comments/${post.id}`}
-                        className='flex items-center p-1 gap-1 mx-2 mb-0.5 h-10 text-xs hover:bg-gray-800'
-                        prefetch={false}
-                    >
-                        <Icons.comments /> {post.comment_count} Comments
-                    </Link>
                 </div>
             </div>
-        </div>
+        </Link>
     )
 }
 

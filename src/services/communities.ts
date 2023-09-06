@@ -68,7 +68,7 @@ const create = async (name: string, token: string | undefined) => {
 
 const subscribe = async (community_id: number, token: string | undefined) => {
 ///post api/communities/:community_id/subscribers(.:format) communities#subscribe
-    const res = await fetch('/api/backend/communities/:community_id/subscribers', {
+    const res = await fetch(`/api/backend/communities/${community_id}/subscribers`, {
         method: 'POST',
         headers: { 
             'Content-Type': 'application/json',
@@ -83,11 +83,15 @@ const subscribe = async (community_id: number, token: string | undefined) => {
     return data.data as Subscription
 }
 
-const unsubscribe = async () => {
+const unsubscribe = async (community_id: number, subscriber_id: number, token: string | undefined) => {
     //delete /api/communities/:community_id/subscribers(.:format) communities#unsubscribe
-    const res = await fetch('/api/backend/communities/:community_id/subscribers', {
+    
+    const res = await fetch(`/api/backend/communities/${community_id}/subscribers/${subscriber_id}`, {
         method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' }
+        headers: { 
+            'Content-Type': 'application/json' ,
+            'Authorization': `${token ? token : ''}`
+        }
     })
 
     const data = await res.json()

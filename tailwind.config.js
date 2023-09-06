@@ -16,6 +16,7 @@ module.exports = {
         '128': '32rem',
         '144': '36rem',
         '160': '40rem',
+        '200': '59rem',
       },
       backgroundColor: {
         'gray-850': '#171F29',

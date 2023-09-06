@@ -67,6 +67,15 @@ export interface Community {
     id: number,
     name: string,
     description: string,
+    title: string,
+}
+
+export interface Subscription {
+    id: number,
+    user_id: number,
+    community_id: number,
+    created_at: string,
+    updated_at: string,
 }
 
 export type FetchCommunityPosts = (

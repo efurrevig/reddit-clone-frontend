@@ -1,5 +1,4 @@
-import { Community } from '../types'
-import { Post } from '../types'
+import { Community, Post, Subscription } from '../types'
 
 const getAll = async () => {
     const res = await fetch('/api/backend/communities', {
@@ -67,6 +66,37 @@ const create = async (name: string, token: string | undefined) => {
 
 }
 
-const communityService = { getAll, search, create, fetchCommunityPosts }
+const subscribe = async (community_id: number, token: string | undefined) => {
+///post api/communities/:community_id/subscribers(.:format) communities#subscribe
+    const res = await fetch('/api/backend/communities/:community_id/subscribers', {
+        method: 'POST',
+        headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `${token ? token : ''}`
+        }
+    })
+
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
+    const data = await res.json()
+    return data.data as Subscription
+}
+
+const unsubscribe = async () => {
+    //delete /api/communities/:community_id/subscribers(.:format) communities#unsubscribe
+    const res = await fetch('/api/backend/communities/:community_id/subscribers', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' }
+    })
+
+    const data = await res.json()
+    if (!res.ok) {
+        throw new Error(data.status.message)
+    }
+    return data.data as string
+}
+
+const communityService = { getAll, search, create, fetchCommunityPosts, subscribe, unsubscribe }
 
 export default communityService

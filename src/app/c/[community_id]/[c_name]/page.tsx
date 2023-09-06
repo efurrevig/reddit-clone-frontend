@@ -5,7 +5,7 @@ import CreatePostHeader from '@/components/CreatePostHeader'
 import CommunitySideBar from '@/components/CommunitySideBar/CommunitySideBar'
 import PostList from '@/components/PostList'
 import { Post, Community, Sort } from '@/types'
-import { FetchCommunityPosts } from '@/types'
+import CommunityHeader from '@/components/Communities/CommunityHeader'
 
 async function getCommunityPosts(id: number, sorted_by: string, token: string | undefined, page: number) {
     'use server'
@@ -46,13 +46,16 @@ export default async function Page({
     const community = await getCommunity(params.community_id)
 
     return (
-        <main className='flex gap-6'>
-            <div className='my-2 w-144'>
-                <CreatePostHeader communityName={community.name} communityId={community.id}/>
-                <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
-                <PostList posts={posts} sortedBy={sorted_by} cid={params.community_id}  />
+        <main className='flex flex-col gap-6 w-full justify-center items-center'>
+            <CommunityHeader community={community}/>
+            <div className='flex gap-6'>
+                <div className='my-2 w-144'>
+                    <CreatePostHeader communityName={community.name} communityId={community.id}/>
+                    <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
+                    <PostList posts={posts} sortedBy={sorted_by} cid={params.community_id}  />
+                </div>
+                <CommunitySideBar community={community} />
             </div>
-            <CommunitySideBar community={community} />
         </main>
     )
 }

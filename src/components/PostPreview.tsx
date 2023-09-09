@@ -8,6 +8,7 @@ import { useState } from "react";
 import postService from "@/services/posts";
 import Link from "next/link";
 import TimeDisplay from "./TimeDisplay";
+import Upvote from "./Upvote";
 
 const PostPreview = ({post}: {post: Post}) => {
     const [votes, setVotes] = useState(post.vote_count)
@@ -34,6 +35,7 @@ const PostPreview = ({post}: {post: Post}) => {
     }
 
     const handleDownvoteClick = async () => {
+        console.log('hello')
         const res = await postService.downVote(post.id, session?.user?.accessToken)
         if (res) {
             if (downvoted) {
@@ -53,7 +55,7 @@ const PostPreview = ({post}: {post: Post}) => {
 
     return (
             <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill border border-gray-900 hover:border-gray-600'>
-                <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
+                {/* <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
                     <Button clearDefault={true} onClick={handleUpvoteClick}>
                         <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
                     </Button>
@@ -61,8 +63,14 @@ const PostPreview = ({post}: {post: Post}) => {
                     <Button clearDefault={true} onClick={handleDownvoteClick}>
                         <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
                     </Button>
-                </div>
-                
+                </div> */}
+                <Upvote
+                    handleUpvoteClick={handleUpvoteClick}
+                    handleDownvoteClick={handleDownvoteClick}
+                    upVoted={upvoted}
+                    downVoted={downvoted}
+                    votes={votes} 
+                />                
                 <div className='relative pt-2 bg-gray-900 rounded-r hover:cursor-pointer'>
                     <div className='text-xs relative flex flex-nowrap items-start mx-2 mb-2'>
                         <div className='flex flex-auto items-center overflow-hidden text-gray-400'>

@@ -19,7 +19,7 @@ const Button = (
             onClick={props.onClick}
             disabled={isLoading || props.disabled}
         >
-            {isLoading && <Spinner />}
+            {/* {isLoading && <Spinner />} */}
             {props.children}
         </button>
     )

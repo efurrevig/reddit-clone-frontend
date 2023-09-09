@@ -39,9 +39,7 @@ async function getSubscription(id: number, token: string | undefined) {
             headers: { 'Authorization': `${token ? token : ''}` }
         }
     )
-    if (!res.ok) {
-        throw new Error(res.statusText)
-    } else if (res.status === 204) {
+    if (!res.ok || res.status === 404) {
         return undefined
     }
     const data = await res.json()
@@ -60,12 +58,13 @@ export default async function Page({
     const sorted_by = searchParams.sort === undefined ? 'hot' : searchParams.sort
     const posts = await getCommunityPosts(params.community_id, sorted_by, session?.user.accessToken, 1)
     const community: Community = await getCommunity(params.community_id)
-    const subscription: Subscription | undefined = await getSubscription(params.community_id, session?.user.accessToken)
+    const subscription: Subscription | undefined = session?.user ? await getSubscription(params.community_id, session?.user.accessToken) : undefined
+    
     return (
         <main className='flex flex-col gap-6 w-full justify-center items-center'>
             <CommunityHeader community={community} subscription={subscription ? subscription : undefined}/>
             <div className='flex gap-6'>
-                <div className='my-2 w-144'>
+                <div className='w-144'>
                     <CreatePostHeader communityName={community.name} communityId={community.id}/>
                     <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
                     <PostList posts={posts} sortedBy={sorted_by} cid={params.community_id}  />

@@ -17,7 +17,6 @@ const CommunityHeader = (
     const [subscriptionStatus, setSubscriptionStatus] = useState<boolean>(false)
     const [subscription, setSubscription] = useState<Subscription | null>(null)
     const [isLoading, setIsLoading] = useState<boolean>(false)
-    console.log(subscription)
 
     useEffect(() => {
         setSubscription(params.subscription ? params.subscription : null)

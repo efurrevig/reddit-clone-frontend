@@ -82,7 +82,8 @@ const CommentForm = ( props: CommentFormProps ) => {
                     <Button 
                         clearDefault={true}
                         isLoading={loading}
-                        customClass='bg-cyan-900 text-white font-bold py-1 px-4 rounded-2xl flex justify-center items-center gap-2'
+                        disabled={session?.user ? false : true}
+                        customClass='bg-cyan-900 text-white font-bold py-1 px-4 rounded-2xl flex justify-center items-center gap-2 hover:cursor-pointer disabled:cursor-not-allowed'
                     >
                         Comment
                     </Button>

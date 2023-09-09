@@ -12,6 +12,18 @@ const getAll = async () => {
     return data
 }
 
+const getCommunity = async (id: number, serverSide: boolean = true) => {
+    const url = serverSide ? 
+        `${process.env.BACKEND_URL}/communities/${id}` 
+        : `/api/backend/communities/${id}`
+    const res = await fetch(url)
+    if (!res.ok) {
+        throw new Error(res.statusText)
+    }
+    const data = await res.json()
+    return data.data as Community
+}
+
 const fetchCommunityPosts = async (id: number, sorted_by: string, token: string | undefined, page: number) => {
     const res = await fetch(`/api/backend/communities/${id}/posts/${sorted_by}/${page}`,
         {
@@ -101,6 +113,13 @@ const unsubscribe = async (community_id: number, subscriber_id: number, token: s
     return data.data as string
 }
 
-const communityService = { getAll, search, create, fetchCommunityPosts, subscribe, unsubscribe }
+const communityService = { 
+    getAll, 
+    search, 
+    create, 
+    fetchCommunityPosts, 
+    subscribe, 
+    unsubscribe, 
+    getCommunity }
 
 export default communityService

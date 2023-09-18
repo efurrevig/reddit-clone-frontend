@@ -23,21 +23,26 @@ export const authOptions: NextAuthOptions = {
                         }
                     }),
                     headers: { 'Content-Type': 'application/json' }
-                })
-                const user = await res.json()
-                const token = await res.headers.get('Authorization')
-                user.data.accessToken = token
-                if (res.ok && user.data) {
+                })                
+                if (res.ok) {
+                    const user = await res.json()
+                    const token = await res.headers.get('Authorization')
+                    user.data.accessToken = token
                     // Any object returned will be saved in `user` property of the JWT
                     return user.data
-                } else {
-                    // If you return null or false then the credentials will be rejected
+                } else if (res.status === 401) {
                     throw new Error('Invalid credentials')
+                } else if (res.status === 429) {
+                    throw new Error('Too many login attempts')
+                } else
+                    throw new Error('Something went wrong')
+                    // If you return null or false then the credentials will be rejected
+                    return null
                     // You can also Reject this callback with an Error or with a URL:
                     // throw new Error('error message') // Redirect to error page
                     // throw '/path/to/redirect'        // Redirect to a URL
                 }
-            }
+
         })
     ],
     session: {

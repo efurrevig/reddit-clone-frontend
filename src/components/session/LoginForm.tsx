@@ -25,18 +25,18 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
             const { email, password } = form
             const res = await signIn('credentials', { redirect: false, email, password })
             if (res?.error) {
-                setError('Invalid credentials')
+                setError(res.error)
             } else {
                 setError('')
                 setSuccess('Success')
                 closeForm()
-
             }
         } catch (error) {
             console.log('login error:', error)
+            setError('Something went wrong')
         } finally {
             setIsLoading(false)
-            location.reload()
+            //location.reload()
         }
 
     }
@@ -67,7 +67,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                     required
                 />
-                <Button customClass="rounded-3xl">Log In</Button>
+                <Button customClass="rounded-3xl" isLoading={isLoading} >Log In</Button>
             </form>
             <div className="mb-10">
                 <div className="flex gap-2"> 

@@ -14,7 +14,7 @@ export const authOptions: NextAuthOptions = {
             },
             async authorize(credentials, req) {
                 // Add logic here to look up the user from the credentials supplied
-                const res = await fetch('http://localhost:3001/api/login', {
+                const res = await fetch(`${process.env.BACKEND_URL}/login`, {
                     method: 'POST',
                     body: JSON.stringify({
                         user: {
@@ -37,7 +37,6 @@ export const authOptions: NextAuthOptions = {
                 } else
                     throw new Error('Something went wrong')
                     // If you return null or false then the credentials will be rejected
-                    return null
                     // You can also Reject this callback with an Error or with a URL:
                     // throw new Error('error message') // Redirect to error page
                     // throw '/path/to/redirect'        // Redirect to a URL

@@ -5,7 +5,11 @@ import { useSession } from 'next-auth/react'
 import postService from '@/services/posts'
 import Button from '../Button'
 
-const UrlForm = () => {
+const UrlForm = (
+    props: {
+        communityId?: number,
+    }
+) => {
     const [form, setForm] = useState({
         title: '',
         url: '',
@@ -27,7 +31,7 @@ const UrlForm = () => {
                 ...form
             }
             try {
-                await postService.createPost(post, session?.user?.accessToken)
+                await postService.createPost(post, session?.user?.accessToken, props.communityId ? props.communityId : 0)
             } catch (error) {
                 console.log(error)
             }

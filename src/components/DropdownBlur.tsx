@@ -9,18 +9,18 @@ const DropdownBlur = (
 }) => {
     const dropdownRef = props.targetRef
     
-    const handleClickOutsideDropdown = (e: MouseEvent) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
-            props.setShowDropdown(false)
-        }
-    }
 
     useEffect(() => {
+        const handleClickOutsideDropdown = (e: MouseEvent) => {
+            if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+                props.setShowDropdown(false)
+            }
+        }
         document.addEventListener('mousedown', handleClickOutsideDropdown)
         return () => {
             document.removeEventListener('mousedown', handleClickOutsideDropdown)
         }
-    }, [])
+    }, [dropdownRef, props])
 
     return (
         <div className='w-full h-full flex items-center'>

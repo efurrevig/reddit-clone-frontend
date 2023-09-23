@@ -28,38 +28,65 @@ const PostList = ( props : {
     }, [props.posts, props.sortedBy])
 
 
-    const fetchMorePosts = async () => {
-        setIsLoading(true)
-        const token = session?.user?.accessToken
-        try {
+    // const fetchMorePosts = async () => {
+    //     setIsLoading(true)
+    //     const token = session?.user?.accessToken
+    //     try {
  
-            const newPosts = await communityService.fetchCommunityPosts(props.cid, sort, token, page)
+    //         const newPosts = await communityService.fetchCommunityPosts(props.cid, sort, token, page)
             
 
-            if (newPosts.length === 0) {
-                setIsEnd(true)
-            } else {
-                setPosts([...posts, ...newPosts])
-                setPage(prevPage => prevPage + 1)
-            } 
-        } catch (error) {
-            console.log(error)
-        } finally {
-            setIsLoading(false)
-        }
-    }
+    //         if (newPosts.length === 0) {
+    //             setIsEnd(true)
+    //         } else {
+    //             setPosts([...posts, ...newPosts])
+    //             setPage(prevPage => prevPage + 1)
+    //         } 
+    //     } catch (error) {
+    //         console.log(error)
+    //     } finally {
+    //         setIsLoading(false)
+    //     }
+    // }
 
-    const handleScroll = () => {
-        if ((window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) && (!isEnd && !isLoading)) {
-            fetchMorePosts()
-        }
-        return
-    }
+    // const handleScroll = () => {
+    //     if ((window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) && (!isEnd && !isLoading)) {
+    //         fetchMorePosts()
+    //     }
+    //     return
+    // }
 
     useEffect(() => {
+        const fetchMorePosts = async () => {
+            setIsLoading(true)
+            const token = session?.user?.accessToken
+            try {
+     
+                const newPosts = await communityService.fetchCommunityPosts(props.cid, sort, token, page)
+                
+    
+                if (newPosts.length === 0) {
+                    setIsEnd(true)
+                } else {
+                    setPosts([...posts, ...newPosts])
+                    setPage(prevPage => prevPage + 1)
+                } 
+            } catch (error) {
+                console.log(error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+    
+        const handleScroll = () => {
+            if ((window.innerHeight + document.documentElement.scrollTop >= document.documentElement.offsetHeight) && (!isEnd && !isLoading)) {
+                fetchMorePosts()
+            }
+            return
+        }
         window.addEventListener('scroll', handleScroll)
         return () => window.removeEventListener('scroll', handleScroll)
-    }, [isLoading, isEnd, sort, page, posts, session])
+    }, [isLoading, isEnd, sort, page, posts, session, props.cid])
 
 
     return (

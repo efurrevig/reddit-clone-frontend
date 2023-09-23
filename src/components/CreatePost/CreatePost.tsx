@@ -48,7 +48,7 @@ const CreatePost = (
                     <PostForm communityId={props.communityId ? props.communityId : undefined} />
                 </div>
                 <div className={postType !== 'url' ? 'hidden' : ''}>
-                    <UrlForm />
+                    <UrlForm communityId={props.communityId ? props.communityId : undefined} />
                 </div>
                 
             </div>

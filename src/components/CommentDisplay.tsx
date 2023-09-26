@@ -112,64 +112,64 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                     {!showEditForm ? (
                         <div className="flex gap-2 -ml-1 mt-1 text-gray-400">
 
-                        <div className="flex gap-1 text-sm items-center">
-                            <Button clearDefault={true} onClick={handleUpvoteClick}>
-                                <Icons.arrowUp strokeWidth="1" fill={upvoted ? 'white' : 'none'} />
-                            </Button>
-                            <span>{votes}</span>
-                            <Button clearDefault={true} onClick={handleDownvoteClick}>
-                                <Icons.arrowDown strokeWidth="1" fill={downvoted ? 'white' : 'none'} />
-                            </Button>
-                        </div>
-
-                        <Button 
-                            clearDefault={true} 
-                            onClick={() => setShowCommentForm(!showCommentForm)}
-                            customClass="flex gap-1 text-xs items-center text-gray-400"
-                        >
-                            <Icons.comments strokeWidth=".5" height="20" width="20" /> Reply
-                        </Button>
-                        
-                        {/* edit/delete comment dropdown */}
-                        {session?.user?.id === comment.user_id && !comment.is_deleted ? (
-
-                            <div className='relative'>
-                                <Button
-                                    clearDefault={true}
-                                    onClick={toggleDropdown}
-                                    customClass="flex gap-1 text-xs items-center text-gray-400"
-                                >
-                                    <Icons.elipsis />
+                            <div className="flex gap-1 text-sm items-center">
+                                <Button clearDefault={true} onClick={handleUpvoteClick}>
+                                    <Icons.arrowUp strokeWidth="1" fill={upvoted ? 'white' : 'none'} />
                                 </Button>
-                                {showDropdown ? (
-
-                                    <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
-                                        <div 
-                                            className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
-                                            ref={dropdownRef}
-                                        >
-                                            <Button
-                                                clearDefault={true}
-                                                onClick={handleEditCommentClick}
-                                                customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
-                                            >
-                                                <Icons.edit />
-                                                Edit
-                                            </Button>
-                                            <Button
-                                                clearDefault={true}
-                                                onClick={handleDropdownDeleteClick}
-                                                customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
-                                            >
-                                                <Icons.trash />
-                                                Delete
-                                            </Button>
-                                        </div>
-                                    </DropdownBlur>
-                                ) : null}
+                                <span>{votes}</span>
+                                <Button clearDefault={true} onClick={handleDownvoteClick}>
+                                    <Icons.arrowDown strokeWidth="1" fill={downvoted ? 'white' : 'none'} />
+                                </Button>
                             </div>
 
-                        ) : null}
+                            <Button 
+                                clearDefault={true} 
+                                onClick={() => setShowCommentForm(!showCommentForm)}
+                                customClass="flex gap-1 text-xs items-center text-gray-400"
+                            >
+                                <Icons.comments strokeWidth=".5" height="20" width="20" /> Reply
+                            </Button>
+                            
+                            {/* edit/delete comment dropdown */}
+                            {session?.user?.id === comment.user_id && !comment.is_deleted ? (
+
+                                <div className='relative'>
+                                    <Button
+                                        clearDefault={true}
+                                        onClick={toggleDropdown}
+                                        customClass="flex gap-1 text-xs items-center text-gray-400"
+                                    >
+                                        <Icons.elipsis />
+                                    </Button>
+                                    {showDropdown ? (
+
+                                        <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
+                                            <div 
+                                                className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
+                                                ref={dropdownRef}
+                                            >
+                                                <Button
+                                                    clearDefault={true}
+                                                    onClick={handleEditCommentClick}
+                                                    customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
+                                                >
+                                                    <Icons.edit />
+                                                    Edit
+                                                </Button>
+                                                <Button
+                                                    clearDefault={true}
+                                                    onClick={handleDropdownDeleteClick}
+                                                    customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
+                                                >
+                                                    <Icons.trash />
+                                                    Delete
+                                                </Button>
+                                            </div>
+                                        </DropdownBlur>
+                                    ) : null}
+                                </div>
+
+                            ) : null}
 
                         </div>
                     ) : null }

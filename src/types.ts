@@ -19,6 +19,7 @@ export interface Post {
     title: string,
     body: string,
     post_type: string, // text, image, video, link
+    user_id: number,
     url: string | null,
     username: string,
     community_id: number,

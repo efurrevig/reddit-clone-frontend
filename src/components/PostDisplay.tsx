@@ -3,17 +3,21 @@ import { Post } from '@/types'
 import { Icons } from './Icons'
 import Button from './Button'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import postService from '@/services/posts'
 import TimeDisplay from './TimeDisplay'
 import Link from 'next/link'
+import DropdownBlur from './DropdownBlur'
 
 const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     const [votes, setVotes] = useState(post.vote_count)
     const [upvoted, setUpvoted] = useState(post.vote_value === 1)
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)
+    const [showPostMenuDropdown, setShowPostMenuDropdown] = useState<boolean>(false)
     
+    const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
+
     const handleUpvoteClick = async () => {
         const res = await postService.upVote(post.id, session?.user?.accessToken)
         if (res) {
@@ -49,6 +53,19 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
             }
         }
     }
+
+    const togglePostMenuDropdown = () => {
+        setShowPostMenuDropdown(!showPostMenuDropdown)
+    }
+
+    const handleEditPostClick = () => {
+        console.log('edited')
+    }
+
+    const handleDeletePostClick = () => {
+        console.log('deleted')
+    }
+
     return (
         <div className='relative bg-gray-900 rounded mb-3 pl-10 h min-h-fill'>
             <div className='absolute bg-gray-900 rounded-l items-center flex flex-col p-2 left-0 top-0'>
@@ -73,6 +90,46 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
                         <span className='hover:underline cursor-pointer mr-1'>u/{post.author}</span>
                         <TimeDisplay created_at={post.created_at}/>
                     </div>
+                    {/* edit/delete comment dropdown */}
+                    {session?.user?.id === post.user_id && !post.is_deleted ? (
+
+                        <div className='relative'>
+                            <Button
+                                clearDefault={true}
+                                onClick={togglePostMenuDropdown}
+                                customClass="flex gap-1 text-xs items-center text-gray-400"
+                            >
+                                <Icons.elipsis width="20" height="20"/>
+                            </Button>
+                            {showPostMenuDropdown ? (
+
+                                <DropdownBlur setShowDropdown={setShowPostMenuDropdown} targetRef={dropdownRef}>
+                                    <div 
+                                        className='absolute z-10 flex flex-col border w-28 border-gray-700 bg-gray-1000'
+                                        ref={dropdownRef}
+                                    >
+                                        <Button
+                                            clearDefault={true}
+                                            onClick={handleEditPostClick}
+                                            customClass="flex gap-1 text-xs items-center text-gray-400 border-b border-gray-700 p-2 hover:bg-gray-900"
+                                        >
+                                            <Icons.edit />
+                                            Edit Post
+                                        </Button>
+                                        <Button
+                                            clearDefault={true}
+                                            onClick={handleDeletePostClick}
+                                            customClass="flex gap-1 text-xs items-center text-gray-400 p-2 hover:bg-gray-900"
+                                        >
+                                            <Icons.trash />
+                                            Delete Post
+                                        </Button>
+                                    </div>
+                                </DropdownBlur>
+                            ) : null}
+                        </div>
+
+                    ) : null}
                 </div>
                 <div className='mx-2 pr-2 inline-block text-lg break-words'>
                     {/* <Link href='/'> */}

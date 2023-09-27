@@ -56,6 +56,25 @@ const deletePost = async (id: number, community_id: number, token: string | unde
     return true
 }
 
-const postService = { upVote, downVote, createPost, deletePost }
+const editPost = async (id: number, community_id: number, body: string, token: string | undefined) => {
+    // TODO /api/communities/:community_id/posts/:id
+    const res = await fetch(`/api/backend/communities/${community_id}/posts/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ post: { body: body } }),
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `${token ? token : ''}`
+        },
+        cache: 'no-cache',
+    })
+
+    if (!res.ok) {
+        throw new Error('Edit not valid')
+    }
+    const data = await res.json()
+    return data.data as Post 
+}
+
+const postService = { upVote, downVote, createPost, deletePost, editPost }
 
 export default postService

@@ -9,6 +9,7 @@ import TimeDisplay from './TimeDisplay'
 import Link from 'next/link'
 import DropdownBlur from './DropdownBlur'
 import ConfirmationModal from './ConfirmationModal'
+import EditPostForm from './Posts/EditPostForm'
 
 const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     const [votes, setVotes] = useState(post.vote_count)
@@ -16,6 +17,7 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)
     const [showPostMenuDropdown, setShowPostMenuDropdown] = useState<boolean>(false)
     const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false)
+    const [showEditForm, setShowEditForm] = useState<boolean>(false)
     
     const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
@@ -73,13 +75,13 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     }
 
     const handleEditPostClick = () => {
-        console.log('edited')
+        setShowEditForm(!showEditForm)
+        setShowPostMenuDropdown(false)
     }
 
     const handleDeletePostClick = () => {
         setShowDeleteConfirmation(!showDeleteConfirmation)
         setShowPostMenuDropdown(false)
-        console.log('deleted')
     }
 
     return (
@@ -162,7 +164,14 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
                     {/* </Link> */}
                 </div>
                 <div className='mx-2 text-sm break-words overflow-auto -mb-px pb-1'>
-                        <span className="whitespace-pre-line">{post.body}</span>
+                        {showEditForm ? (
+                            <EditPostForm 
+                                post={post}
+                                setShowEditForm={setShowEditForm}
+                            />
+                        ) : (
+                            <span className="whitespace-pre-line">{post.body}</span>
+                        )}
                 </div>
                 <div className='flex items-center p-1 gap-1 mb-0.5 h-10 text-xs'>
                         <Icons.comments /> {post.comment_count} Comments

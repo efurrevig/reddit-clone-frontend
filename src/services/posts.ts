@@ -44,6 +44,18 @@ const createPost = async (newPost: PostToCreate, token: string | undefined, comm
     return data.data as Post
 } 
 
-const postService = { upVote, downVote, createPost }
+const deletePost = async (id: number, community_id: number, token: string | undefined) => {
+    const res = await fetch(`/api/backend/communities/${community_id}/posts/${id}`, {
+        method: 'DELETE',
+        headers: {'Authorization': `${token ? token : ''}`},
+        cache: 'no-cache',
+    })
+    if (!res.ok) {
+        return false
+    }
+    return true
+}
+
+const postService = { upVote, downVote, createPost, deletePost }
 
 export default postService

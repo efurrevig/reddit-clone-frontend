@@ -8,12 +8,14 @@ import postService from '@/services/posts'
 import TimeDisplay from './TimeDisplay'
 import Link from 'next/link'
 import DropdownBlur from './DropdownBlur'
+import ConfirmationModal from './ConfirmationModal'
 
 const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
     const [votes, setVotes] = useState(post.vote_count)
     const [upvoted, setUpvoted] = useState(post.vote_value === 1)
     const [downvoted, setDownvoted] = useState(post.vote_value === -1)
     const [showPostMenuDropdown, setShowPostMenuDropdown] = useState<boolean>(false)
+    const [showDeleteConfirmation, setShowDeleteConfirmation] = useState<boolean>(false)
     
     const dropdownRef = useRef<HTMLDivElement>(null)
     const { data: session } = useSession()
@@ -58,16 +60,39 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
         setShowPostMenuDropdown(!showPostMenuDropdown)
     }
 
+    const handleDelete = async () => {
+        try {
+            const res = await postService.deletePost(post.id, post.community_id, session?.user?.accessToken)
+            if (res) {
+                handleDeletePostClick()
+                console.log(res)
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const handleEditPostClick = () => {
         console.log('edited')
     }
 
     const handleDeletePostClick = () => {
+        setShowDeleteConfirmation(!showDeleteConfirmation)
+        setShowPostMenuDropdown(false)
         console.log('deleted')
     }
 
     return (
         <div className='relative bg-gray-900 rounded mb-3 pl-10 h min-h-fill'>
+            {showDeleteConfirmation && (
+                <ConfirmationModal  
+                    closeModal={handleDeletePostClick}
+                    modalTitle="Delete Post"
+                    modalBody="Are you sure you want to delete this post?"
+                    buttonLabel="Delete"
+                    modalFunction={handleDelete}
+                />
+            )}
             <div className='absolute bg-gray-900 rounded-l items-center flex flex-col p-2 left-0 top-0'>
                 <Button clearDefault={true} onClick={handleUpvoteClick}>
                     <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />

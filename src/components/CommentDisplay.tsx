@@ -62,6 +62,18 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
         }
     }
 
+    const handleDeleteClick = async () => {
+        try {
+            const res = await commentService.deleteComment(comment.id, session?.user?.accessToken)
+            if (res) {
+                handleDropdownDeleteClick()
+                comment.is_deleted = true
+            }
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown)
     }
@@ -82,7 +94,10 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
             {showDeleteConfirmation && (
                 <ConfirmationModal
                     closeModal={handleDropdownDeleteClick}
-                    comment={comment}
+                    modalTitle="Delete comment"
+                    modalBody="Are you sure you want to delete this comment?"
+                    buttonLabel="Delete"
+                    modalFunction={handleDeleteClick}
                 />
             )}
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">

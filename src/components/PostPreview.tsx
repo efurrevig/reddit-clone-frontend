@@ -54,16 +54,7 @@ const PostPreview = ({post}: {post: Post}) => {
     }
 
     return (
-            <div className='relative bg-gray-1000 rounded mb-3 pl-10 h min-h-fill border border-gray-900 hover:border-gray-600'>
-                {/* <div className='absolute bg-gray-1000 rounded-l items-center flex flex-col p-2 left-0 top-0'>
-                    <Button clearDefault={true} onClick={handleUpvoteClick}>
-                        <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
-                    </Button>
-                    <div>{votes}</div>
-                    <Button clearDefault={true} onClick={handleDownvoteClick}>
-                        <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
-                    </Button>
-                </div> */}
+            <div className='relative bg-gray-1000 rounded pl-10 h min-h-fill border border-gray-700 hover:border-gray-600'>
                 <Upvote
                     handleUpvoteClick={handleUpvoteClick}
                     handleDownvoteClick={handleDownvoteClick}

@@ -18,12 +18,14 @@ export default async function Page({
 }) {
     const userPosts = await getUserPosts(params.username)
     return (
-        <div className='flex flex-col w-full'>
-            {userPosts.map(post => {
-                return (
-                    <PostPreview post={post} key={post.id} />
-                )
-            })}
+        <div className='w-full mx-8'>
+            <div className='flex flex-col w-full'>
+                {userPosts.map(post => {
+                    return (
+                        <PostPreview post={post} key={post.id} />
+                    )
+                })}
+            </div>
         </div>
     )
 }

@@ -90,7 +90,7 @@ const PostList = ( props : {
 
 
     return (
-        <div>
+        <div className='flex flex-col gap-3'>
             {posts.map((post) => {
                 return (
                     <PostPreview key={post.id} post={post}  />

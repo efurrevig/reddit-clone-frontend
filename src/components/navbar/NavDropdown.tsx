@@ -38,7 +38,7 @@ const NavDropdown = () => {
     return (
         <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
             <div 
-                className={`relative w-64 h-12 text-sm flex flex-col border ${showDropdown === true ? 'border-slate-500' : 'border-transparent'} hover:border-slate-500 rounded`}
+                className={`relative w-64 h-12 text-sm flex flex-col border ${showDropdown === true ? 'border-slate-700' : 'border-transparent'} hover:border-slate-700 rounded`}
                 ref={dropdownRef}
             >
                 {showCreateCommunityModal &&
@@ -49,7 +49,7 @@ const NavDropdown = () => {
                     <Icons.chevronDown />
                 </Button>
                 {showDropdown &&
-                    <div className='absolute max-h-96 overflow-y-scroll overflow-x-hidden bg-gray-900 border border-slate-500 border-t-0 rounded-t-none top-full -left-px w-64 min-w-full flex flex-col gap-2 rounded -mt-1'>
+                    <div className='absolute max-h-96 overflow-y-scroll overflow-x-hidden bg-gray-900 border border-slate-700 border-t-0 rounded-t-none top-full -left-px w-64 min-w-full flex flex-col gap-2 rounded -mt-1'>
                         {dropdownItems.map((item) => {
                             return (
                                 <Button 

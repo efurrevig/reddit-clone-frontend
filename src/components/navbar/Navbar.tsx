@@ -10,6 +10,8 @@ import { useSession, signOut } from 'next-auth/react'
 import { Icons } from '../Icons'
 import { useState } from 'react'
 import sessionService from '@/services/sessions'
+import ProfileDropdown from '../UserProfile/ProfileDropdown'
+
 
 const Navbar = () => {
     const [showLogin, setShowLogin] = useState(false)
@@ -35,12 +37,12 @@ const Navbar = () => {
     }
 
     return (
-        <header className="min-w-full h-12 bg-gray-900 sticky top-0 inset-x-0 z-[10] flex items-center justify-between px-3">
+        <header className="w-full h-12 bg-gray-900 sticky top-0 inset-x-0 z-[10] flex items-center gap-4 px-3">
 
             {/* login modal */}
             {showLogin && <SessionForm setShowForm={setShowLogin} />}
 
-            <div className="container flex  h-full mx-auto items-center gap-5 ">
+            <div className="flex justify-start h-full items-center gap-5 ">
                 <Link 
                     href="/" 
                     className="flex gap-2 items-center"
@@ -55,31 +57,38 @@ const Navbar = () => {
             </div>
 
 
-            <SearchBar />
+            <div className="flex w-full justify-between items-center">
+                <div className='w-full ml-10'>
+                    <div className='w-5/6 min-w-search'>
+                        <SearchBar />
+                    </div>
+                </div>
+                <div className='flex justify-end items-center'>
+                    {session?.user && <Button customClass="m-1 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}
+                    {session?.user && 
+                        <Link
+                            href={'/submit'}
+                            className="m-1 text-white text-2xl mr-5"
+                            title='Create Post'
+                            data-tooltip-style='dark'
+                        >
+                            <Icons.plus />
+                        </Link>      
+                    }
 
-
-            <div className="container flex justify-end items-center ">
-                {session?.user && <Button customClass="m-1 text-white text-2xl" clearDefault={true}> <Icons.bell /> </Button>}
-                {session?.user && 
-                    <Link
-                        href={'/submit'}
-                        className="m-1 text-white text-2xl"
-                        title='Create Post'
-                        data-tooltip-style='dark'
-                    >
-                        <Icons.plus />
-                    </Link>      
-                }
-                {/* <div> new post </div> */}
-                {session?.user ? (
-                  <Button isLoading={isLoading} onClick={handleLogout} customClass="w-18 h-8 mx-1">
-                    Logout
-                  </Button>
-                ) : (
-                  <Button onClick={showLoginModal} customClass="w-18 h-8 mx-1">
-                    Login
-                  </Button>
-                )}
+                    {session?.user ? (
+                      // <Button isLoading={isLoading} onClick={handleLogout} customClass="w-18 h-8 mx-1">
+                      //   Logout
+                      // </Button>
+                      <div className='w-max'>
+                        <ProfileDropdown />
+                      </div>
+                    ) : (
+                      <Button onClick={showLoginModal} customClass="w-18 h-8 mx-1">
+                        Login
+                      </Button>
+                    )}
+                </div>
             </div>
 
         </header>

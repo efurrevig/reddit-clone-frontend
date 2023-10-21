@@ -58,8 +58,8 @@ const Navbar = () => {
 
 
             <div className="flex w-full justify-between items-center">
-                <div className='w-full ml-10'>
-                    <div className='w-5/6 min-w-search'>
+                <div className='flex items-center justify-center w-full ml-10'>
+                    <div className='w-5/6 min-w-search max-w-2xl'>
                         <SearchBar />
                     </div>
                 </div>

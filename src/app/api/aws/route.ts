@@ -1,6 +1,7 @@
 import { getServerSession } from "next-auth/next"
 import { authOptions } from "../../api/auth/[...nextauth]/route"
 import { NextResponse } from "next/server"
+import { check_file_type_is_image } from "@/utils/helpers"
 
 // post request to upload avatar to aws-s3
 export async function POST(request: Request) {
@@ -12,18 +13,24 @@ export async function POST(request: Request) {
 
     // get file from request
     const formData = await request.formData()
-    const file = formData.get('file')
+    const file = formData.get('file') as File
 
     if (!file) {
         return NextResponse.json({ error: 'An error occured with file, please try again' }, { status: 500 })
     }
 
-    // @ts-ignore
-    const fileType = encodeURIComponent(file.type)
+    // check file is image
+    const fileType = await check_file_type_is_image(file)
+    
+    if (!fileType.match('image.*')) {
+        return NextResponse.json({ error: 'File must be an image' }, { status: 400 })
+    }
+
+    const encodedFileType = encodeURIComponent(fileType)
 
 
     // get presigned url from backend, with filetype in query
-    const urlRes = await fetch(`${process.env.BACKEND_URL}/users/url/${fileType}`, {
+    const urlRes = await fetch(`${process.env.BACKEND_URL}/users/avatar/${encodedFileType}`, {
         method: 'GET',
         headers: { 
             'Authorization': `${session.user.accessToken}`,
@@ -50,5 +57,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json({ status: 200, data: { key: urlData.data.key } })
+
+
 
 }

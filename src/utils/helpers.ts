@@ -53,3 +53,51 @@ function get_depth_index(comments: Comment[], level: number) {
     }
     return l
 }
+
+
+export async function check_file_type_is_image(file: File) {
+    const pngArr = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]
+    const jpegArr = [0xff, 0xd8, 0xff]
+
+    const isJPEG = check(new Uint8Array(jpegArr))
+    const isPNG = check(new Uint8Array(pngArr))
+
+    const buffers = await readBuffer(file, 0, 8)
+    const uint8Array = new Uint8Array(buffers as ArrayBuffer)
+
+    if (isJPEG(uint8Array)) {
+        return 'image/jpeg'
+    }
+
+    if (isPNG(uint8Array)) {
+        return 'image/png'
+    }
+
+    return ''
+}
+
+async function readBuffer(file: File, start = 0, end = 2) {
+    const imageReader = file.slice(start, end).stream().getReader()
+    const imageDataU8: number[] = []
+
+    while (true) {
+        const { done, value } = await imageReader.read()
+        if (done) break
+
+        if (value) {
+            const uint8Array = new Uint8Array(value);
+            for (let i = 0; i < uint8Array.length; i++) {
+                imageDataU8.push(uint8Array[i]);
+            }
+        }
+    }
+
+    return new Uint8Array(imageDataU8)
+}
+
+function check(headers: Uint8Array) {
+    return (buffers: Uint8Array, options = { offset: 0 }) =>
+        headers.every(
+            (header, index) => header === buffers[options.offset + index]
+    )
+}

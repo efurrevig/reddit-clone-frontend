@@ -40,7 +40,6 @@ const createPost = async (newPost: PostToCreate, token: string | undefined, comm
         return await res.json()
     }
     const data = await res.json()
-    console.log(data)
     return data.data as Post
 } 
 

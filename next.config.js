@@ -11,6 +11,16 @@ const nextConfig = {
     experimental: {
         serverActions: true,
     },
+    images: {
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: process.env.AWS_IMAGES_URL,
+                port: '',
+                pathname: '/*'
+            }
+        ]
+    },
 }
 
 module.exports = nextConfig

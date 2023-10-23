@@ -5,6 +5,7 @@ import { Icons } from '@/components/Icons'
 import { useEffect, useState, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import DropdownBlur from '../DropdownBlur'
+import Image from 'next/image'
 
 interface dropdownItem  {
     name: string,
@@ -14,6 +15,14 @@ interface dropdownItem  {
 const ProfileDropdown = () => {
     const {data: session} = useSession()
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
+    const [avatarKey, setAvatarKey] = useState<string | null>(null)
+
+    useEffect(() => {
+        if (session?.user?.avatar_key) {
+            setAvatarKey(session?.user?.avatar_key)
+        }
+    }, [session])
+    
     const dropdownItems = [
         {
             name: 'Profile',
@@ -43,7 +52,16 @@ const ProfileDropdown = () => {
             >
                 <div className='flex items-center gap-2'>
                     <div>
-                        <Icons.defaultProfile />
+                        {avatarKey ? (
+                            <Image
+                                src={`https://credcloneproj.s3.us-east-2.amazonaws.com/${avatarKey}`}
+                                alt='profile'
+                                width='20'
+                                height='20'
+                                className='w-8 h-8 rounded-full' />
+                        ) : ( 
+                            <Icons.defaultProfile />
+                        )}
                     </div>
                     <div className='flex flex-col text-sm'>
                         <span>{session?.user?.username}</span>

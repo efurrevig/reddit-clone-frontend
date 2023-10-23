@@ -67,7 +67,6 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
             const res = await postService.deletePost(post.id, post.community_id, session?.user?.accessToken)
             if (res) {
                 handleDeletePostClick()
-                console.log(res)
             }
         } catch (error) {
             console.log(error)

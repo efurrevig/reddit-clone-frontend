@@ -25,15 +25,15 @@ const AvatarUpload = () => {
                 body: formData,
             })
             const data = await res.json()
-            // const avatarKey = data.data.key
-            // const newSession = {
-            //     ...session,
-            //     user: {
-            //         ...session?.user,
-            //         avatar_key: avatarKey
-            //     }
-            // }
-            // await update(newSession)
+            const avatarKey = data.data.key
+            const newSession = {
+                ...session,
+                user: {
+                    ...session?.user,
+                    avatar_key: avatarKey
+                }
+            }
+            await update(newSession)
             e.target.reset()
         } catch (error) {
             console.log(error)

@@ -10,6 +10,7 @@ import CommentForm from "./CommentForm";
 import ConfirmationModal from "./ConfirmationModal";
 import EditCommentForm from "./EditCommentForm";
 import DropdownBlur from "./DropdownBlur";
+import UserAvatar from "./UserAvatar";
 
 const CommentDisplay = ({ comment } : { comment: Comment}) => {
     const [votes, setVotes] = useState<number>(comment.vote_count)
@@ -101,7 +102,13 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                 />
             )}
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">
-                <Icons.tempUser /> {comment.author}
+                <UserAvatar
+                    avatar_key={comment.user_avatar_key}
+                    width={16}
+                    height={16}
+                    alt='profile' 
+                />
+                {comment.author}
                 <span className='text-gray-400 font-thin'> • </span> 
                 <span className="text-gray-400"><TimeDisplay created_at={comment.created_at} /> </span>
             </div>

@@ -54,7 +54,7 @@ function get_depth_index(comments: Comment[], level: number) {
     return l
 }
 
-
+// readBuffer, check, and check_file_type_is_image are used to check if file is an image
 export async function check_file_type_is_image(file: File) {
     const pngArr = [0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]
     const jpegArr = [0xff, 0xd8, 0xff]
@@ -76,6 +76,7 @@ export async function check_file_type_is_image(file: File) {
     return ''
 }
 
+// read first (end-start) relevant bytes of file
 async function readBuffer(file: File, start = 0, end = 2) {
     const imageReader = file.slice(start, end).stream().getReader()
     const imageDataU8: number[] = []
@@ -95,6 +96,7 @@ async function readBuffer(file: File, start = 0, end = 2) {
     return new Uint8Array(imageDataU8)
 }
 
+// compare file header with expected header
 function check(headers: Uint8Array) {
     return (buffers: Uint8Array, options = { offset: 0 }) =>
         headers.every(

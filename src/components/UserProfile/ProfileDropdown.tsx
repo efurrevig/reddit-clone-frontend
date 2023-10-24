@@ -1,11 +1,11 @@
 'use client'
-import Button from '@/components/Button'
 import Link from 'next/link'
 import { Icons } from '@/components/Icons'
 import { useEffect, useState, useRef } from 'react'
 import { useSession } from 'next-auth/react'
 import DropdownBlur from '../DropdownBlur'
 import Image from 'next/image'
+import UserAvatar from '../UserAvatar'
 
 interface dropdownItem  {
     name: string,
@@ -51,18 +51,13 @@ const ProfileDropdown = () => {
                 onClick={handleDropdownClick}
             >
                 <div className='flex items-center gap-2'>
-                    <div>
-                        {avatarKey ? (
-                            <Image
-                                src={`https://credcloneproj.s3.us-east-2.amazonaws.com/${avatarKey}`}
-                                alt='profile'
-                                width='20'
-                                height='20'
-                                className='w-8 h-8 rounded-full' />
-                        ) : ( 
-                            <Icons.defaultProfile />
-                        )}
-                    </div>
+
+                    <UserAvatar
+                        avatar_key={session?.user?.avatar_key}
+                        width={24}
+                        height={24}
+                        alt='profile'
+                    />
                     <div className='flex flex-col text-sm'>
                         <span>{session?.user?.username}</span>
                         <div className='flex items-center gap-0.5'>

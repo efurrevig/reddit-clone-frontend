@@ -21,16 +21,17 @@ export async function POST(request: Request) {
 
     // check file is image
     const fileType = await check_file_type_is_image(file)
-    
+
     if (!fileType.match('image.*')) {
         return NextResponse.json({ error: 'File must be an image' }, { status: 400 })
     }
 
-    const encodedFileType = encodeURIComponent(fileType)
+    const fileTypeURI = encodeURIComponent(fileType)
 
 
-    // get presigned url from backend, with filetype in query
-    const urlRes = await fetch(`${process.env.BACKEND_URL}/users/avatar/${encodedFileType}`, {
+    // get presigned url from backend, with filetypeURI in query
+    // this also triggers an job to update avatar_key and delete old S3 object in backend after 10 seconds
+    const urlRes = await fetch(`${process.env.BACKEND_URL}/users/avatar/${fileTypeURI}`, {
         method: 'GET',
         headers: { 
             'Authorization': `${session.user.accessToken}`,
@@ -39,6 +40,7 @@ export async function POST(request: Request) {
     })
 
     if (!urlRes.ok) {
+        // todo: handle error
         return NextResponse.json({ error: 'You must be logged in.' }, { status: 401 })
     }
     const urlData = await urlRes.json()

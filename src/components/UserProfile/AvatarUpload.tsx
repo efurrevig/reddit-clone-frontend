@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
 import Button from '../Button';
 import Image from 'next/image'
+import { Icons } from '../Icons';
 
 
 const AvatarUpload = () => {
@@ -68,20 +69,36 @@ const AvatarUpload = () => {
 
     
     return (
-        <div className='flex'>
+        <div className='flex flex-col gap-3 w-20 h-20 rounded-full'>
             <form onSubmit={handleSubmit}>
-                <input type='file' accept="image/jpg image/jpeg image/png" name="file" onChange={onSelectFile} />
+                <label htmlFor='file-upload'  >
+                    <i className={`cursor-pointer flex items-center justify-center w-20 h-20 bg-gray-800 object-cover rounded-full ${selectedImage ? '' : 'border border-dashed border-white-700'}`}>
+                        {selectedImage ? (
+                            <Image 
+                                src={preview}
+                                width={20}
+                                height={20} 
+                                alt='preview' 
+                                className='w-20 h-20 object-cover rounded-full' 
+                            />
+                        ) : ( 
+                            <div className='flex flex-col items-center justify-center'>
+                                <Icons.camera />
+                                <span className='text-xs text-gray-400'>Click here</span>   
+                            </div>                                            
+                        )}
+                    </i>
+                </label>
+                <input 
+                    type='file' 
+                    id="file-upload" 
+                    accept="image/jpg image/jpeg image/png" 
+                    name="file"
+                    className='hidden'
+                    onChange={onSelectFile} 
+                />
                 {/* <Button type='submit' isLoading={loading} >Upload</Button> */}
             </form>
-            {selectedImage && (
-                    <Image 
-                        src={preview}
-                        width={20}
-                        height={20} 
-                        alt='preview' 
-                        className='w-20 h-20 object-cover' 
-                    />
-            )}
         </div>
     )
 }

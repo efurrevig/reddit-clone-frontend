@@ -18,7 +18,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ setDisplay }) => {
     const [error, setError] = useState('')
     const [success, setSuccess] = useState(false)
     const [isLoading, setIsLoading] = useState(false)
-    const inputClasses = "rounded-3xl bg-gray-800 p-2"
+    const inputClasses = "rounded-3xl bg-gray-800 p-2 focus:outline focus:outline-cyan-800"
 
     
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -86,7 +86,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ setDisplay }) => {
                 <input
                     type="password"
                     placeholder="Confirm Password"
-                    className="rounded-3xl bg-gray-800 p-2"
+                    className={inputClasses}
                     value={form.confirmPassword}
                     onChange={(e) => setForm({ ...form, confirmPassword: e.target.value })}
                     required

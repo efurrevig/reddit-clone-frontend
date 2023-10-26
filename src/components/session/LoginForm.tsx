@@ -54,7 +54,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
                 <input
                     type="email"
                     placeholder="Email"
-                    className="rounded-3xl bg-gray-800 p-2"
+                    className="rounded-3xl bg-gray-800 p-2 focus:outline focus:outline-cyan-800"
                     value={form.email}
                     onChange={(e) => setForm({ ...form, email: e.target.value })}
                     required
@@ -62,7 +62,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
                 <input
                     type="password"
                     placeholder="Password"
-                    className="rounded-3xl bg-gray-800 p-2"
+                    className="rounded-3xl bg-gray-800 p-2 focus:outline focus:outline-cyan-800" 
                     value={form.password}
                     onChange={(e) => setForm({ ...form, password: e.target.value })}
                     required

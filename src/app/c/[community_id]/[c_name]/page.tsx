@@ -56,7 +56,7 @@ export default async function Page({
         <main className='flex flex-col gap-6 w-full justify-center items-center'>
             <CommunityHeader community={community} subscription={subscription ? subscription : undefined}/>
             <div className='flex gap-6'>
-                <div className='w-144'>
+                <div className='w-screen max-w-144'>
                     <CreatePostHeader communityName={community.name} communityId={community.id}/>
                     <CommunitySortBar id={params.community_id} name={params.c_name} sortedBy={sorted_by} />
                     <PostList posts={posts} sortedBy={sorted_by} cid={params.community_id}  />

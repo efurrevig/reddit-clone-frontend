@@ -12,7 +12,7 @@ const CommunitySideBar = ({
     community: Community
 }) => {
     return (
-        <div className='flex flex-col w-80 my-2 gap-3'>
+        <div className='flex flex-col hidden md:block lg:w-80 my-2 gap-3'>
             <AboutCommunity community={community}/>
             <CommunityRules community={community} />
             <ModeratorList community={community} />

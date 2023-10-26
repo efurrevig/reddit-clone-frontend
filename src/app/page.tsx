@@ -25,7 +25,7 @@ export default async function Home() {
     const posts = await getPosts('Home', 'hot', session?.user.accessToken, 1)
     return (
         <main>
-            <div className='my-2 w-144'>
+            <div className='my-2 w-screen max-w-144'>
               <CreatePostHeader />
               <FeedPostList posts={posts} sortedBy={'hot'} feed={'Home'} />
             </div>

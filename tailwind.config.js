@@ -29,6 +29,9 @@ module.exports = {
         '3/4': '75%',
         'search': '12rem',
       },
+      maxWidth: {
+        '144': '36rem'
+      }
     },
   },
   plugins: [],

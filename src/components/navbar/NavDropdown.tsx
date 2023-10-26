@@ -38,14 +38,14 @@ const NavDropdown = () => {
     return (
         <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
             <div 
-                className={`relative w-64 h-12 text-sm flex flex-col border ${showDropdown === true ? 'border-slate-700' : 'border-transparent'} hover:border-slate-700 rounded`}
+                className={`relative w-fit md:w-12 lg:w-64 h-full text-sm flex flex-col border ${showDropdown === true ? 'border-slate-700' : 'border-transparent'} hover:border-slate-700 rounded`}
                 ref={dropdownRef}
             >
                 {showCreateCommunityModal &&
                     <CreateCommunityModal closeModal={() => setShowCreateCommunityModal(false)} />
                 }
                 <Button clearDefault={true} onClick={handleDropdownClick} customClass='min-h-full px-2 items-center flex flex-row justify-between'>
-                    <div>NavDropdown</div>
+                    <span className='text-sm hidden lg:block'>Navigate</span>
                     <Icons.chevronDown />
                 </Button>
                 {showDropdown &&

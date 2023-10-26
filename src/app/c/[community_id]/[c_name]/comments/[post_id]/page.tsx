@@ -34,7 +34,7 @@ export default async function Page({
 
     return (
         <main className='flex gap-6'>
-            <div className="bg-gray-900 rounded flex flex-col gap-2 w-144">
+            <div className="bg-gray-900 rounded flex flex-col gap-2 w-screen max-w-144">
                 <PostDisplay post={post} c_name={params.c_name} />
                 <CommentTree comments={comments} post_id={post.id} />
             </div>

@@ -46,7 +46,7 @@ const ProfileDropdown = () => {
     return (
         <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
             <div
-                className={`relative flex items-center w-44 px-2 m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
+                className={`relative flex items-center md:w-44 px-2 m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
                 ref={dropdownRef}
                 onClick={handleDropdownClick}
             >
@@ -58,7 +58,7 @@ const ProfileDropdown = () => {
                         height={24}
                         alt='profile'
                     />
-                    <div className='flex flex-col text-sm'>
+                    <div className='hidden md:block flex flex-col text-sm'>
                         <span>{session?.user?.username}</span>
                         <div className='flex items-center gap-0.5'>
                             <Icons.karma width="16" height="16" stroke="teal"/>

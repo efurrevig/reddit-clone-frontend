@@ -71,7 +71,7 @@ const ProfileDropdown = () => {
                     <Icons.chevronDown />
                 </div>
                 {showDropdown && (
-                    <div className='absolute flex flex-col px-5 py-3 gap-1 top-full bg-gray-900 w-44 -left-px border border-slate-700 rounded rounded-t-none'>
+                    <div className='absolute flex flex-col px-5 py-3 gap-1 top-full bg-gray-900 w-44 -left-full md:-left-px border border-slate-700 rounded rounded-t-none'>
                         
                         {dropdownItems.map((item) => (
                             <Link

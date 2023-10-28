@@ -80,8 +80,8 @@ export const Icons = {
             width="24" 
             height="24" 
             viewBox="0 0 24 24" 
-            fill={props.fill || "none"}
-            stroke="currentColor" 
+            fill={props.fill ? props.fill : "none"}
+            stroke={props.fill != 'none' ? props.fill : "currentColor"}
             strokeWidth={props.strokeWidth || "2"} 
             strokeLinecap="round" 
             strokeLinejoin="round" 
@@ -95,8 +95,8 @@ export const Icons = {
             width="24" 
             height="24" 
             viewBox="0 0 24 24" 
-            fill={props.fill || "none"} 
-            stroke="currentColor" 
+            fill={props.fill ? props.fill : "none"}
+            stroke={props.fill != 'none' ? props.fill : "currentColor"}
             strokeWidth={props.strokeWidth || "2"} 
             strokeLinecap="round" 
             strokeLinejoin="round" 

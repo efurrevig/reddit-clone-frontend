@@ -21,7 +21,7 @@ const Upvote = (
                 disabled={!session?.user?.accessToken}
                 customClass={cssClass}
             >
-                <Icons.arrowUp fill={params.upVoted ? 'white' : 'none'} />
+                <Icons.arrowUp fill={params.upVoted ? 'rgb(21, 94, 117)' : 'none'} />
             </Button>
 
             <div>{params.votes}</div>
@@ -32,7 +32,7 @@ const Upvote = (
                 disabled={!session?.user?.accessToken}
                 customClass={cssClass}
             >
-                <Icons.arrowDown fill={params.downVoted ? 'white' : 'none'} />
+                <Icons.arrowDown fill={params.downVoted ? 'rgb(117, 21, 21)' : 'none'} />
             </Button>
         </div>
     )

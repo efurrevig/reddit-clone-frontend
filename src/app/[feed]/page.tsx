@@ -26,11 +26,12 @@ export default async function Page({
     const sortedBy = 'hot'
     const posts = await getFeedPosts(params.feed, 'hot', session?.user?.accessToken, 1)
     return (
-        <main className='flex gap-6'>
-            <div className='my-2 w-144'>
+        <main>
+            <div className='my-2 w-screen max-w-144'>
                 <CreatePostHeader />
                 <FeedPostList posts={posts} sortedBy={sortedBy} feed={params.feed} />
             </div>
         </main>
+
     )
 }

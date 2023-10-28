@@ -46,7 +46,7 @@ const ProfileDropdown = () => {
     return (
         <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
             <div
-                className={`relative flex items-center md:w-44 px-2 m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
+                className={`relative flex items-center md:w-44 px-2 m-0 md:m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
                 ref={dropdownRef}
                 onClick={handleDropdownClick}
             >

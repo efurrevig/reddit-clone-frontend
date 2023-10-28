@@ -57,7 +57,7 @@ const Navbar = () => {
             </div>
 
 
-            <div className="flex w-full justify-between items-center">
+            <div className="flex h-12 w-full justify-between items-center">
                 <div className='flex items-center justify-end md:justify-center w-full ml-10'>
                     <div className='md:w-5/6 md:min-w-search max-w-2xl'>
                         <SearchBar />
@@ -80,7 +80,7 @@ const Navbar = () => {
                       // <Button isLoading={isLoading} onClick={handleLogout} customClass="w-18 h-8 mx-1">
                       //   Logout
                       // </Button>
-                      <div className='w-max'>
+                      <div className='w-max h-12'>
                         <ProfileDropdown />
                       </div>
                     ) : (

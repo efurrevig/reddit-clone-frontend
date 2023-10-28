@@ -96,11 +96,11 @@ const PostDisplay = ({post, c_name} : {post: Post, c_name: string}) => {
             )}
             <div className='absolute bg-gray-900 rounded-l items-center flex flex-col p-2 left-0 top-0'>
                 <Button clearDefault={true} onClick={handleUpvoteClick}>
-                    <Icons.arrowUp fill={upvoted ? 'white' : 'none'} />
+                    <Icons.arrowUp fill={upvoted ? 'rgb(21, 94, 117)' : 'none'} />
                 </Button>
                 <div>{votes}</div>
                 <Button clearDefault={true} onClick={handleDownvoteClick}>
-                    <Icons.arrowDown fill={downvoted ? 'white' : 'none'} />
+                    <Icons.arrowDown fill={downvoted ? 'rgb(117, 21, 21)' : 'none'} />
                 </Button>
             </div>
             <div className='relative pt-2 bg-gray-900 rounded-r'>

@@ -136,11 +136,11 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
 
                             <div className="flex gap-1 text-sm items-center">
                                 <Button clearDefault={true} onClick={handleUpvoteClick}>
-                                    <Icons.arrowUp strokeWidth="1" fill={upvoted ? 'white' : 'none'} />
+                                    <Icons.arrowUp strokeWidth="2" fill={upvoted ? 'rgb(21, 94, 117)' : 'none'} />
                                 </Button>
                                 <span>{votes}</span>
                                 <Button clearDefault={true} onClick={handleDownvoteClick}>
-                                    <Icons.arrowDown strokeWidth="1" fill={downvoted ? 'white' : 'none'} />
+                                    <Icons.arrowDown strokeWidth="2" fill={downvoted ? 'rgb(117, 21, 21)' : 'none'} />
                                 </Button>
                             </div>
 

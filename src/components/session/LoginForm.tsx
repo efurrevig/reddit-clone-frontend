@@ -31,12 +31,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
                 setSuccess('Success')
                 closeForm()
             }
+            location.reload()
         } catch (error) {
             console.log('login error:', error)
             setError('Something went wrong')
         } finally {
             setIsLoading(false)
-            //location.reload()
         }
 
     }

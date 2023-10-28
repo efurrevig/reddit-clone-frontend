@@ -9,7 +9,6 @@ import SearchBar from './SearchBar'
 import { useSession, signOut } from 'next-auth/react'
 import { Icons } from '../Icons'
 import { useState } from 'react'
-import sessionService from '@/services/sessions'
 import ProfileDropdown from '../UserProfile/ProfileDropdown'
 
 
@@ -21,19 +20,6 @@ const Navbar = () => {
 
     const showLoginModal = () => {
         setShowLogin(true)
-    }
-
-    const handleLogout = async () => {
-        try {
-          setIsLoading(true)
-          await sessionService.logout(session?.user?.accessToken as string)
-        } catch (error) {
-          console.log(error)
-          return
-        }
-        await signOut({redirect: false})
-        setIsLoading(false)
-        location.reload()
     }
 
     return (

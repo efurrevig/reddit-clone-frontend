@@ -2,10 +2,12 @@
 import Link from 'next/link'
 import { Icons } from '@/components/Icons'
 import { useEffect, useState, useRef } from 'react'
-import { useSession } from 'next-auth/react'
+import { useSession, signOut } from 'next-auth/react'
 import DropdownBlur from '../DropdownBlur'
-import Image from 'next/image'
 import UserAvatar from '../UserAvatar'
+import sessionService from '@/services/sessions'
+import Button from '../Button'
+
 
 interface dropdownItem  {
     name: string,
@@ -16,6 +18,7 @@ const ProfileDropdown = () => {
     const {data: session} = useSession()
     const [showDropdown, setShowDropdown] = useState<boolean>(false)
     const [avatarKey, setAvatarKey] = useState<string | null>(null)
+    const [isloading, setIsLoading] = useState<boolean>(false)
 
     useEffect(() => {
         if (session?.user?.avatar_key) {
@@ -32,13 +35,23 @@ const ProfileDropdown = () => {
             name: 'Settings',
             href: '/user/settings',
         },
-        {
-            name: 'Logout',
-            href: '/api/auth/signout',
-        },
     ] as dropdownItem[]
     const dropdownRef = useRef<HTMLDivElement>(null)
     
+
+    const handleLogout = async () => {
+        try {
+          setIsLoading(true)
+          await sessionService.logout(session?.user?.accessToken as string)
+        } catch (error) {
+          console.log(error)
+          return
+        }
+        await signOut({redirect: false})
+        setIsLoading(false)
+        location.reload()
+    }
+
     const handleDropdownClick = () => {
         setShowDropdown(!showDropdown)
     }
@@ -81,8 +94,15 @@ const ProfileDropdown = () => {
                                 >
                                     {item.name}
                             </Link>
-                        )
-                        )}
+                        ))}
+                        <Button
+                            onClick={handleLogout}
+                            isLoading={isloading}
+                            customClass='flex justify-start items-center'
+                            clearDefault={true}
+                        >
+                            Logout
+                        </Button>
                     </div>
                 )}
             </div>

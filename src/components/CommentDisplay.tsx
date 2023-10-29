@@ -102,12 +102,13 @@ const CommentDisplay = ({ comment } : { comment: Comment}) => {
                 />
             )}
             <div className="flex flex-row gap-1 px-1 -ml-4 text-xs items-center">
-                <UserAvatar
-                    avatar_key={comment.user_avatar_key}
-                    width={16}
-                    height={16}
-                    alt='profile' 
-                />
+                <div className='relative h-4 w-4'>
+                    <UserAvatar
+                        avatar_key={comment.user_avatar_key}
+                        alt='profile' 
+                    />
+                </div>
+                
                 {comment.author}
                 <span className='text-gray-400 font-thin'> • </span> 
                 <span className="text-gray-400"><TimeDisplay created_at={comment.created_at} /> </span>

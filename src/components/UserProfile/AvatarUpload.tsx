@@ -97,7 +97,14 @@ const AvatarUpload = () => {
                     className='hidden'
                     onChange={onSelectFile} 
                 />
-                {/* <Button type='submit' isLoading={loading} >Upload</Button> */}
+                <Button 
+                    isLoading={loading}
+                    disabled={!selectedImage}
+                    clearDefault={true}
+                    customClass='bg-cyan-800 hover:bg-cyan-700 text-sm mt-4 py-1 px-3 ml-1 rounded flex justify-center items-center gap-2 hover:cursor-pointer disabled:cursor-not-allowed'
+                >
+                    Upload
+                </Button>
             </form>
         </div>
     )

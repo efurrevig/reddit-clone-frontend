@@ -59,18 +59,19 @@ const ProfileDropdown = () => {
     return (
         <DropdownBlur setShowDropdown={setShowDropdown} targetRef={dropdownRef}>
             <div
-                className={`relative flex items-center md:w-44 px-2 m-0 md:m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
+                className={`relative flex items-center h-12 md:w-44 px-2 m-0 md:m-1 justify-between ${showDropdown ? 'border-slate-700 rounded-b-none border-b-0' : 'border-transparent hover:border-slate-700'} border rounded min-h-full cursor-pointer`}
                 ref={dropdownRef}
                 onClick={handleDropdownClick}
             >
-                <div className='flex items-center gap-2'>
+                <div className='flex items-center h-12 gap-2'>
 
-                    <UserAvatar
-                        avatar_key={session?.user?.avatar_key}
-                        width={24}
-                        height={24}
-                        alt='profile'
-                    />
+                    <div className='relative h-8 w-8'>
+                        <UserAvatar
+                            avatar_key={session?.user?.avatar_key}
+                            alt='profile'
+                        />
+                    </div>
+        
                     <div className='hidden md:block flex flex-col text-sm'>
                         <span>{session?.user?.username}</span>
                         <div className='flex items-center gap-0.5'>

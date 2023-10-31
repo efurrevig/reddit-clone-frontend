@@ -4,6 +4,8 @@ import { useSession } from 'next-auth/react';
 import Button from '../Button';
 import Image from 'next/image'
 import { Icons } from '../Icons';
+import SuccessMessage from '../SuccessMessage';
+import ErrorMessage from '../ErrorMessage';
 
 
 const AvatarUpload = () => {
@@ -35,6 +37,7 @@ const AvatarUpload = () => {
     const handleSubmit = async (e: React.ChangeEvent<HTMLFormElement> ) => {
         e.preventDefault()
         setLoading(true)
+        setErrorMessage('')
 
         const formData = new FormData(e.target)
         const file = formData.get('file')
@@ -48,6 +51,10 @@ const AvatarUpload = () => {
                 method: 'POST',
                 body: formData,
             })
+            if (!res.ok) {
+                const data = await res.json()
+                throw new Error(data.error)
+            }
             const data = await res.json()
             const avatarKey = data.data.key
             const newSession = {
@@ -59,8 +66,14 @@ const AvatarUpload = () => {
             }
             await update(newSession)
             e.target.reset()
+            setSelectedImage(undefined)
+            setSuccessMessage('Success')
+            setTimeout(() => {
+                setSuccessMessage('')
+            }, 5000)
         } catch (error) {
-            console.log(error)
+            const e = error as Error
+            setErrorMessage(e.message)
         } finally {
             setLoading(false)
         }
@@ -73,7 +86,7 @@ const AvatarUpload = () => {
             <form onSubmit={handleSubmit}>
                 <label htmlFor='file-upload'  >
                     <i className={`cursor-pointer flex items-center justify-center w-20 h-20 bg-gray-800 object-cover rounded-full ${selectedImage ? '' : 'border border-dashed border-white-700'}`}>
-                        {selectedImage ? (
+                        {preview != '' ? (
                             <Image 
                                 src={preview}
                                 width={20}
@@ -106,6 +119,20 @@ const AvatarUpload = () => {
                     Upload
                 </Button>
             </form>
+            <div className='w-screen'>
+                {errorMessage != '' ? (
+                    <ErrorMessage
+                        message={errorMessage}
+                        size='text-xs'
+                    />
+                ) : (
+                    <SuccessMessage 
+                        message={successMessage}
+                        size='text-xs'
+                    />
+                
+                )}
+            </div>
         </div>
     )
 }

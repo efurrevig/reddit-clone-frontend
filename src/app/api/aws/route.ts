@@ -8,7 +8,7 @@ export async function POST(request: Request) {
     // get user session
     const session = await getServerSession(authOptions)
     if (!session) {
-        return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+        return NextResponse.json({ error: 'Must be logged in' }, { status: 401 })
     }
 
     // get file from request
@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     const file = formData.get('file') as File
 
     if (!file) {
-        return NextResponse.json({ error: 'An error occured with file, please try again' }, { status: 500 })
+        return NextResponse.json({ error: 'Reselect file' }, { status: 500 })
     }
 
     // check file is image
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
 
     if (!urlRes.ok) {
         // todo: handle error
-        return NextResponse.json({ error: 'You must be logged in.' }, { status: 401 })
+        return NextResponse.json({ error: 'You must be logged in' }, { status: 401 })
     }
     const urlData = await urlRes.json()
     const presignedUrl = urlData.data.url
@@ -55,9 +55,8 @@ export async function POST(request: Request) {
         body: file
     })
     if (!avatarRes.ok) {
-        return NextResponse.json({ error: 'An error occured with file, please refresh the page and try again' }, { status: 400 })
+        return NextResponse.json({ error: 'An error occured with uploading your file' }, { status: 500 })
     }
-
     return NextResponse.json({ status: 200, data: { key: urlData.data.key } })
 
 

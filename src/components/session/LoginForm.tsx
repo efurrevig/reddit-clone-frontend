@@ -25,15 +25,16 @@ const LoginForm: React.FC<LoginFormProps> = ({ setDisplay, closeForm }) => {
             const { email, password } = form
             const res = await signIn('credentials', { redirect: false, email, password })
             if (res?.error) {
-                setError(res.error)
+                throw new Error(res.error)
             } else {
                 setError('')
                 setSuccess('Success')
-                closeForm()
             }
-            location.reload()
+            setTimeout(() => {
+                setSuccess('')
+                location.reload()
+            }, 1000)
         } catch (error) {
-            console.log('login error:', error)
             setError('Something went wrong')
         } finally {
             setIsLoading(false)

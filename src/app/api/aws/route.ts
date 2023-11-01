@@ -26,8 +26,8 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: 'File must be an image' }, { status: 400 })
     }
 
-    const fileTypeURI = encodeURIComponent(fileType)
 
+    const fileTypeURI = encodeURIComponent(fileType)
 
     // get presigned url from backend, with filetypeURI in query
     // this also triggers an job to update avatar_key and delete old S3 object in backend after 10 seconds
